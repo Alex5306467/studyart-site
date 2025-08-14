@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>StudyArt</title>
-  <meta name="description" content="StudyArt — удобные карточки для изучения языков и творчества." />
+  <title>StudyArt — добро пожаловать</title>
+  <meta name="description" content="StudyArt — карточки и мини-инструменты для учёбы и творчества. Ранний доступ: оставьте почту.">
   <style>
     :root{
       --bg:#f6fbf8;
@@ -13,51 +13,113 @@
       --ink:#20322f;
       --muted:#536e67;
       --card:#ffffff;
-      --radius:16px;
-      --shadow:0 10px 30px rgba(32,50,47,.08);
+      --accent:#2f8f6b;
+      --radius:18px;
+      --shadow:0 14px 40px rgba(32,50,47,.10);
     }
     *{box-sizing:border-box}
     body{
       margin:0; font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Arial;
       color:var(--ink); background:linear-gradient(180deg,var(--bg),#fff);
     }
-    .wrap{max-width:920px; margin:0 auto; padding:32px 20px 60px}
+    .wrap{max-width:960px;margin:0 auto;padding:32px 20px 64px}
     .hero{
       background:linear-gradient(120deg,var(--mint),var(--mint-strong));
-      border-radius:var(--radius); padding:38px; box-shadow:var(--shadow);
+      border-radius:var(--radius); padding:40px 32px; box-shadow:var(--shadow);
     }
-    h1{margin:0 0 6px; font-size:40px; letter-spacing:.2px}
-    p{margin:8px 0 0; color:var(--muted)}
-    .cards{margin:28px 0 0; display:flex; gap:16px; flex-wrap:wrap}
+    h1{margin:0 0 8px; font-size:42px; letter-spacing:.2px}
+    p.lead{margin:6px 0 0; color:var(--ink); opacity:.9}
+    .grid{display:grid; grid-template-columns:1.1fr .9fr; gap:22px; margin-top:22px}
     .card{
-      background:var(--card); border-radius:var(--radius); padding:18px 20px; 
-      box-shadow:var(--shadow); flex:1 1 260px;
+      background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow);
+      padding:20px;
     }
-    a.btn{
-      display:inline-block; margin-top:18px; padding:12px 16px; 
-      border-radius:999px; text-decoration:none; font-weight:600;
-      background:#2f8f6b; color:#fff;
+    label{display:block; font-weight:600; margin:8px 0 6px}
+    input{
+      width:100%; padding:12px 14px; border:1px solid #dfe7e4; border-radius:12px;
+      font:inherit; outline:none;
     }
-    footer{margin-top:40px; color:var(--muted); font-size:14px}
+    input:focus{border-color:#9fd9c2; box-shadow:0 0 0 4px rgba(159,217,194,.25)}
+    .btn{
+      display:inline-block; margin-top:14px; padding:12px 18px; font-weight:700;
+      color:#fff; background:var(--accent); border:none; border-radius:999px; cursor:pointer;
+    }
+    .hint{color:var(--muted); font-size:14px; margin-top:10px}
+    .bullets{display:flex; gap:14px; flex-wrap:wrap; margin-top:6px}
+    .pill{background:#ecf8f3; color:#1f5849; padding:8px 12px; border-radius:999px; font-size:14px}
+    footer{margin-top:34px; color:var(--muted); font-size:14px; text-align:center}
+    @media (max-width:840px){ .grid{grid-template-columns:1fr} h1{font-size:36px} }
   </style>
 </head>
 <body>
   <div class="wrap">
     <div class="hero">
       <h1>StudyArt</h1>
-      <p>Карточки, тренировки и мини-инструменты для изучения языков и креатива.</p>
-      <a class="btn" href="#">Скоро здесь будет демо</a>
+      <p class="lead">Добро пожаловать! Мы запускаем удобные карточки и мини-инструменты для изучения языков и креатива.</p>
+      <div class="bullets">
+        <span class="pill">Минималистично</span>
+        <span class="pill">Быстро</span>
+        <span class="pill">Бесплатный старт</span>
+      </div>
     </div>
 
-    <div class="cards">
-      <div class="card"><strong>Лёгкий старт.</strong><br/>HTML-сайт на GitHub Pages + твой домен studyart.app.</div>
-      <div class="card"><strong>Минимализм.</strong><br/>Пастельные цвета, чистая типографика, быстрая загрузка.</div>
-      <div class="card"><strong>Расширяемость.</strong><br/>Добавим карточки/тесты когда будешь готов.</div>
+    <div class="grid">
+      <!-- Блок регистрации -->
+      <div class="card">
+        <h2 style="margin:0 0 8px;">Ранний доступ</h2>
+        <p style="margin:0 0 14px; color:var(--muted)">Оставь контакты — пришлём приглашение, когда откроем доступ.</p>
+
+        <!-- Форма без бэкенда: откроет письмо в почтовом клиенте с подготовленным текстом -->
+        <form id="signup">
+          <label for="name">Имя</label>
+          <input id="name" name="name" type="text" placeholder="Иван" required />
+
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="you@example.com" required />
+
+          <button type="submit" class="btn">Записаться</button>
+          <div class="hint">Нажимая «Записаться», вы откроете письмо в почтовом приложении с готовым текстом.</div>
+        </form>
+
+        <div class="hint" style="margin-top:14px">
+          Или напишите нам напрямую: <a href="mailto:a90d05@gmail.com?subject=StudyArt%20—%20ранний%20доступ">a90d05@gmail.com</a>
+        </div>
+      </div>
+
+      <!-- Блок описания -->
+      <div class="card">
+        <h2 style="margin:0 0 8px;">Что будет на старте</h2>
+        <ul style="margin:8px 0 0 18px">
+          <li>Карточки с «флипом» и прогрессом</li>
+          <li>Быстрая клавиатура для повторения</li>
+          <li>Сохранение набора слов локально</li>
+          <li>Публичные шаринг-сеты позже</li>
+        </ul>
+      </div>
     </div>
 
     <footer>© <span id="y"></span> StudyArt</footer>
   </div>
-  <script>document.getElementById("y").textContent = new Date().getFullYear();</script>
+
+  <script>
+    // ➜ Куда получать заявки: можно заменить на свою почту
+    const OWNER_EMAIL = "a90d05@gmail.com";
+
+    document.getElementById("y").textContent = new Date().getFullYear();
+
+    document.getElementById("signup").addEventListener("submit", function(e){
+      e.preventDefault();
+      const name = encodeURIComponent(document.getElementById("name").value.trim());
+      const email = encodeURIComponent(document.getElementById("email").value.trim());
+
+      const subject = encodeURIComponent("StudyArt — ранний доступ");
+      const body = encodeURIComponent(
+        "Имя: " + decodeURIComponent(name) + "\nEmail: " + decodeURIComponent(email) + "\n\nСообщение: Хочу получить ранний доступ к StudyArt."
+      );
+
+      // Откроет почтовый клиент пользователя с заполненным письмом
+      window.location.href = `mailto:${OWNER_EMAIL}?subject=${subject}&body=${body}`;
+    });
+  </script>
 </body>
 </html>
-
