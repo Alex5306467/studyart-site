@@ -1,1 +1,63 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>StudyArt</title>
+  <meta name="description" content="StudyArt — удобные карточки для изучения языков и творчества." />
+  <style>
+    :root{
+      --bg:#f6fbf8;
+      --mint:#d8f3e3;
+      --mint-strong:#a6e3c8;
+      --ink:#20322f;
+      --muted:#536e67;
+      --card:#ffffff;
+      --radius:16px;
+      --shadow:0 10px 30px rgba(32,50,47,.08);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      color:var(--ink); background:linear-gradient(180deg,var(--bg),#fff);
+    }
+    .wrap{max-width:920px; margin:0 auto; padding:32px 20px 60px}
+    .hero{
+      background:linear-gradient(120deg,var(--mint),var(--mint-strong));
+      border-radius:var(--radius); padding:38px; box-shadow:var(--shadow);
+    }
+    h1{margin:0 0 6px; font-size:40px; letter-spacing:.2px}
+    p{margin:8px 0 0; color:var(--muted)}
+    .cards{margin:28px 0 0; display:flex; gap:16px; flex-wrap:wrap}
+    .card{
+      background:var(--card); border-radius:var(--radius); padding:18px 20px; 
+      box-shadow:var(--shadow); flex:1 1 260px;
+    }
+    a.btn{
+      display:inline-block; margin-top:18px; padding:12px 16px; 
+      border-radius:999px; text-decoration:none; font-weight:600;
+      background:#2f8f6b; color:#fff;
+    }
+    footer{margin-top:40px; color:var(--muted); font-size:14px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>StudyArt</h1>
+      <p>Карточки, тренировки и мини-инструменты для изучения языков и креатива.</p>
+      <a class="btn" href="#">Скоро здесь будет демо</a>
+    </div>
+
+    <div class="cards">
+      <div class="card"><strong>Лёгкий старт.</strong><br/>HTML-сайт на GitHub Pages + твой домен studyart.app.</div>
+      <div class="card"><strong>Минимализм.</strong><br/>Пастельные цвета, чистая типографика, быстрая загрузка.</div>
+      <div class="card"><strong>Расширяемость.</strong><br/>Добавим карточки/тесты когда будешь готов.</div>
+    </div>
+
+    <footer>© <span id="y"></span> StudyArt</footer>
+  </div>
+  <script>document.getElementById("y").textContent = new Date().getFullYear();</script>
+</body>
+</html>
 
