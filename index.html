@@ -3,97 +3,76 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>StudyArt — добро пожаловать</title>
-  <meta name="description" content="StudyArt — карточки и мини-инструменты для учёбы и творчества. Ранний доступ: оставьте почту.">
+  <title>StudyArt — вход и регистрация</title>
+  <meta name="description" content="StudyArt — карточки и мини-инструменты. Войдите через Google или Apple, либо зарегистрируйтесь по email.">
   <style>
     :root{
-      --bg:#f6fbf8;
-      --mint:#d8f3e3;
-      --mint-strong:#a6e3c8;
-      --ink:#20322f;
-      --muted:#536e67;
-      --card:#ffffff;
-      --accent:#2f8f6b;
-      --radius:18px;
-      --shadow:0 14px 40px rgba(32,50,47,.10);
+      --bg:#f6fbf8; --mint:#d8f3e3; --mint-strong:#a6e3c8; --ink:#20322f; --muted:#536e67;
+      --card:#ffffff; --accent:#2f8f6b; --radius:18px; --shadow:0 14px 40px rgba(32,50,47,.10);
     }
     *{box-sizing:border-box}
-    body{
-      margin:0; font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Arial;
-      color:var(--ink); background:linear-gradient(180deg,var(--bg),#fff);
-    }
-    .wrap{max-width:960px;margin:0 auto;padding:32px 20px 64px}
-    .hero{
-      background:linear-gradient(120deg,var(--mint),var(--mint-strong));
-      border-radius:var(--radius); padding:40px 32px; box-shadow:var(--shadow);
-    }
-    h1{margin:0 0 8px; font-size:42px; letter-spacing:.2px}
-    p.lead{margin:6px 0 0; color:var(--ink); opacity:.9}
-    .grid{display:grid; grid-template-columns:1.1fr .9fr; gap:22px; margin-top:22px}
-    .card{
-      background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow);
-      padding:20px;
-    }
-    label{display:block; font-weight:600; margin:8px 0 6px}
-    input{
-      width:100%; padding:12px 14px; border:1px solid #dfe7e4; border-radius:12px;
-      font:inherit; outline:none;
-    }
-    input:focus{border-color:#9fd9c2; box-shadow:0 0 0 4px rgba(159,217,194,.25)}
-    .btn{
-      display:inline-block; margin-top:14px; padding:12px 18px; font-weight:700;
-      color:#fff; background:var(--accent); border:none; border-radius:999px; cursor:pointer;
-    }
-    .hint{color:var(--muted); font-size:14px; margin-top:10px}
-    .bullets{display:flex; gap:14px; flex-wrap:wrap; margin-top:6px}
-    .pill{background:#ecf8f3; color:#1f5849; padding:8px 12px; border-radius:999px; font-size:14px}
-    footer{margin-top:34px; color:var(--muted); font-size:14px; text-align:center}
-    @media (max-width:840px){ .grid{grid-template-columns:1fr} h1{font-size:36px} }
+    body{margin:0;font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Arial;color:var(--ink);
+      background:linear-gradient(180deg,var(--bg),#fff)}
+    .wrap{max-width:940px;margin:0 auto;padding:32px 20px 64px}
+    .hero{background:linear-gradient(120deg,var(--mint),var(--mint-strong));border-radius:var(--radius);
+      padding:34px 28px;box-shadow:var(--shadow)}
+    h1{margin:0 0 6px;font-size:40px}
+    .lead{margin:8px 0 0;color:var(--ink);opacity:.9}
+    .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;margin-top:22px}
+    .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px}
+    label{display:block;font-weight:600;margin:10px 0 6px}
+    input{width:100%;padding:12px 14px;border:1px solid #dfe7e4;border-radius:12px;font:inherit;outline:none}
+    input:focus{border-color:#9fd9c2;box-shadow:0 0 0 4px rgba(159,217,194,.25)}
+    .btn{display:inline-block;margin-top:14px;padding:12px 16px;font-weight:700;color:#fff;background:var(--accent);
+      border:none;border-radius:999px;cursor:pointer}
+    .btn-ghost{display:inline-block;margin-top:10px;padding:11px 14px;border-radius:999px;border:1px solid #cfe7dd;
+      background:#ecf8f3;color:#1f5849;font-weight:700;cursor:pointer;width:100%;text-align:center}
+    .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+    .hint{color:var(--muted);font-size:14px;margin-top:10px}
+    .right li{margin:6px 0}
+    .state{margin-top:10px;padding:10px 12px;border-radius:12px;background:#f4fffa;border:1px solid #cfe7dd;font-size:14px}
+    footer{margin-top:34px;color:var(--muted);font-size:14px;text-align:center}
+    @media (max-width:840px){.grid{grid-template-columns:1fr}h1{font-size:34px}}
   </style>
 </head>
 <body>
   <div class="wrap">
     <div class="hero">
       <h1>StudyArt</h1>
-      <p class="lead">Добро пожаловать! Мы запускаем удобные карточки и мини-инструменты для изучения языков и креатива.</p>
-      <div class="bullets">
-        <span class="pill">Минималистично</span>
-        <span class="pill">Быстро</span>
-        <span class="pill">Бесплатный старт</span>
-      </div>
+      <p class="lead">Добро пожаловать! Войдите через Google/Apple или зарегистрируйтесь по email.</p>
     </div>
 
     <div class="grid">
-      <!-- Блок регистрации -->
+      <!-- Левая колонка: аутентификация -->
       <div class="card">
-        <h2 style="margin:0 0 8px;">Ранний доступ</h2>
-        <p style="margin:0 0 14px; color:var(--muted)">Оставь контакты — пришлём приглашение, когда откроем доступ.</p>
+        <h2 style="margin:0 0 12px">Регистрация / Вход</h2>
 
-        <!-- Форма без бэкенда: откроет письмо в почтовом клиенте с подготовленным текстом -->
-        <form id="signup">
-          <label for="name">Имя</label>
-          <input id="name" name="name" type="text" placeholder="Иван" required />
-
-          <label for="email">Email</label>
-          <input id="email" name="email" type="email" placeholder="you@example.com" required />
-
-          <button type="submit" class="btn">Записаться</button>
-          <div class="hint">Нажимая «Записаться», вы откроете письмо в почтовом приложении с готовым текстом.</div>
-        </form>
-
-        <div class="hint" style="margin-top:14px">
-          Или напишите нам напрямую: <a href="mailto:a90d05@gmail.com?subject=StudyArt%20—%20ранний%20доступ">a90d05@gmail.com</a>
+        <label for="email">Email</label>
+        <input id="email" type="email" placeholder="you@example.com" required>
+        <label for="password">Пароль</label>
+        <input id="password" type="password" placeholder="Минимум 6 символов" required>
+        <div class="row">
+          <button id="email-signup" class="btn">Зарегистрироваться</button>
+          <button id="email-login" class="btn" style="background:#1d6d53">Войти</button>
         </div>
+
+        <div class="hint">Или используйте аккаунт:</div>
+        <div class="row">
+          <button id="google-btn" class="btn-ghost">Продолжить с Google</button>
+          <button id="apple-btn"  class="btn-ghost">Войти с Apple</button>
+        </div>
+
+        <div id="state" class="state" style="display:none"></div>
+        <div class="hint">После входа покажем имя/почту и кнопку «Выйти».</div>
       </div>
 
-      <!-- Блок описания -->
-      <div class="card">
-        <h2 style="margin:0 0 8px;">Что будет на старте</h2>
-        <ul style="margin:8px 0 0 18px">
-          <li>Карточки с «флипом» и прогрессом</li>
-          <li>Быстрая клавиатура для повторения</li>
-          <li>Сохранение набора слов локально</li>
-          <li>Публичные шаринг-сеты позже</li>
+      <!-- Правая колонка: что это даст -->
+      <div class="card right">
+        <h2 style="margin:0 0 8px;">Зачем входить?</h2>
+        <ul>
+          <li>Сохранять свои наборы слов</li>
+          <li>Синхронизировать прогресс между устройствами</li>
+          <li>Получать ранний доступ к новым фишкам</li>
         </ul>
       </div>
     </div>
@@ -101,25 +80,84 @@
     <footer>© <span id="y"></span> StudyArt</footer>
   </div>
 
-  <script>
-    // ➜ Куда получать заявки: можно заменить на свою почту
-    const OWNER_EMAIL = "a90d05@gmail.com";
+  <!-- Firebase (модульный SDK) -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import {
+      getAuth, onAuthStateChanged, signOut,
+      createUserWithEmailAndPassword, signInWithEmailAndPassword,
+      GoogleAuthProvider, OAuthProvider, signInWithPopup
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    // 🔧 ВСТАВЬ СВОЙ КОНФИГ ИЗ FIREBASE CONSOLE
+    const firebaseConfig = {
+      apiKey: "PASTE_YOUR_API_KEY",
+      authDomain: "PASTE_YOUR_PROJECT_ID.firebaseapp.com",
+      projectId: "PASTE_YOUR_PROJECT_ID",
+      appId: "PASTE_YOUR_APP_ID"
+      // (если в конфиге есть другие поля — тоже оставь)
+    };
+
+    const app   = initializeApp(firebaseConfig);
+    const auth  = getAuth(app);
+
+    // UI элементы
+    const $ = s => document.querySelector(s);
+    const state = $("#state");
+    const show = (el)=>{ el.style.display="block"; };
+    const msg = (t)=>{ state.textContent = t; show(state); };
+
+    // Email: регистрация
+    $("#email-signup").addEventListener("click", async () => {
+      const email = $("#email").value.trim();
+      const pass  = $("#password").value.trim();
+      try{
+        await createUserWithEmailAndPassword(auth, email, pass);
+        msg("Аккаунт создан и выполнен вход.");
+      }catch(e){ msg("Ошибка регистрации: " + (e.message||e)); }
+    });
+
+    // Email: вход
+    $("#email-login").addEventListener("click", async () => {
+      const email = $("#email").value.trim();
+      const pass  = $("#password").value.trim();
+      try{
+        await signInWithEmailAndPassword(auth, email, pass);
+        msg("Вход выполнен.");
+      }catch(e){ msg("Ошибка входа: " + (e.message||e)); }
+    });
+
+    // Google
+    $("#google-btn").addEventListener("click", async () => {
+      try{
+        const provider = new GoogleAuthProvider();
+        await signInWithPopup(auth, provider);
+      }catch(e){ msg("Google: " + (e.message||e)); }
+    });
+
+    // Apple (заработает после настройки в Firebase + Apple Developer)
+    $("#apple-btn").addEventListener("click", async () => {
+      try{
+        const provider = new OAuthProvider('apple.com');
+        await signInWithPopup(auth, provider);
+      }catch(e){ msg("Apple: " + (e.message||e)); }
+    });
+
+    // Состояние пользователя
+    onAuthStateChanged(auth, user => {
+      if (user){
+        const name  = user.displayName || "Пользователь";
+        const email = user.email || "";
+        state.innerHTML = `${name} ${email ? "· " + email : ""} — вы вошли. 
+          <button id="logout" class="btn" style="margin-left:10px">Выйти</button>`;
+        show(state);
+        $("#logout")?.addEventListener("click", ()=> signOut(auth));
+      } else {
+        state.style.display = "none";
+      }
+    });
 
     document.getElementById("y").textContent = new Date().getFullYear();
-
-    document.getElementById("signup").addEventListener("submit", function(e){
-      e.preventDefault();
-      const name = encodeURIComponent(document.getElementById("name").value.trim());
-      const email = encodeURIComponent(document.getElementById("email").value.trim());
-
-      const subject = encodeURIComponent("StudyArt — ранний доступ");
-      const body = encodeURIComponent(
-        "Имя: " + decodeURIComponent(name) + "\nEmail: " + decodeURIComponent(email) + "\n\nСообщение: Хочу получить ранний доступ к StudyArt."
-      );
-
-      // Откроет почтовый клиент пользователя с заполненным письмом
-      window.location.href = `mailto:${OWNER_EMAIL}?subject=${subject}&body=${body}`;
-    });
   </script>
 </body>
 </html>
