@@ -1,52 +1,55 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Studyart — Dashboard</title>
-  <meta name="description" content="Studyart personal dashboard: courses, word sets, and spaced review." />
+  <title>Studyart — Личный кабинет</title>
+  <meta name="description" content="Studyart: курсы, сеты слов, интервальные повторения." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#f7f8fb;            /* общий фон, очень светлый */
-      --card:#ffffff;          /* фон карточек */
-      --ink:#1e293b;           /* основной текст (slate-800) */
-      --muted:#64748b;         /* вторичный текст */
-      --line:#e2e8f0;          /* границы/разделители */
-      --brand:#6c8cff;         /* акцент — мягкий индиго */
-      --brand-2:#8ed1c4;       /* акцент 2 — мятный пастельный */
-      --accent:#ffd6a5;        /* акцент 3 — персик-пастель */
-      --ok:#22c55e;            /* зеленый для прогресса */
-      --warn:#f59e0b;          /* желтый для «повторить» */
-      --danger:#ef4444;        /* красный акцент */
-      --shadow: 0 6px 18px rgba(17, 24, 39, 0.06);
-      --radius: 16px;
+      /* Пастельная зелёная тема под стиль карточек */
+      --bg:#f6fbf7;            /* общий фон */
+      --bg-2:#eef8f1;          /* мягкий градиент фона */
+      --card:#ffffff;          /* карточки */
+      --ink:#0f172a;           /* основной текст */
+      --muted:#5b6777;         /* вторичный */
+      --line:rgba(15,23,42,.08); /* деликатные линии */
+      --brand:#9fe6cc;         /* мятный пастель */
+      --brand-2:#c9f0e0;       /* светлый мятный */
+      --accent:#e9f7ef;        /* светло-зелёный для заливок */
+      --ok:#43b98e;            /* зелёная кнопка */
+      --warn:#efb661;          /* янтарный */
+      --danger:#f08a8a;        /* мягкий красный */
+      --shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+      --radius: 18px;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0; font-family:Inter,system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
-      background: var(--bg); color: var(--ink);
+      margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Helvetica Neue,Arial;
+      color:var(--ink);
+      background: radial-gradient(1200px 600px at 50% -200px, var(--bg-2), transparent 60%), var(--bg);
     }
-    .wrap{max-width:1152px; margin:0 auto; padding:24px 16px 48px}
+    .wrap{max-width:1152px; margin:0 auto; padding:24px 16px 56px}
 
     /* Header */
     header{
-      position:sticky; top:0; z-index:5; backdrop-filter:saturate(180%) blur(6px);
-      background:linear-gradient(180deg, rgba(247,248,251,0.85), rgba(247,248,251,0.65));
+      position:sticky; top:0; z-index:5; backdrop-filter: blur(8px);
+      background:linear-gradient(180deg, rgba(246,251,247,0.85), rgba(246,251,247,0.65));
       border-bottom:1px solid var(--line);
     }
     .head{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 16px}
     .brand{display:flex; align-items:center; gap:12px}
     .logo{
-      width:40px; height:40px; border-radius:10px; display:grid; place-items:center; color:#fff;
+      width:40px; height:40px; border-radius:12px; display:grid; place-items:center;
+      color:#0f172a; font-weight:700; letter-spacing:0.3px;
       background: linear-gradient(135deg, var(--brand), var(--brand-2));
-      box-shadow: var(--shadow);
-      font-weight:700; letter-spacing:0.5px;
+      border:1px solid var(--line); box-shadow: var(--shadow);
     }
-    .brand h1{font-size:18px; margin:0; letter-spacing:0.2px}
+    .brand h1{font-size:18px; margin:0}
 
     .controls{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
     .select{
@@ -69,54 +72,49 @@
       background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
       box-shadow:var(--shadow); padding:16px; display:flex; gap:16px; align-items:center;
     }
-    @media (min-width:640px){
-      .card{grid-column: span 6}
-    }
-    @media (min-width:960px){
-      .card{grid-column: span 4}
-    }
+    @media (min-width:640px){ .card{grid-column: span 6} }
+    @media (min-width:960px){ .card{grid-column: span 4} }
 
-    .card .pill{font-size:11px; padding:4px 8px; border-radius:999px; background:#f1f5f9; color:var(--muted); border:1px solid var(--line)}
-    .card .title{font-weight:700; margin:2px 0 6px}
+    .card .pill{font-size:11px; padding:4px 8px; border-radius:999px; background:#f1f5f9; color:var(--muted); border:1px solid #e8edf2}
+    .card .title{font-weight:800; margin:2px 0 6px}
     .meta{font-size:13px; color:var(--muted)}
     .grow{flex:1}
 
     .btn{
-      appearance:none; border:none; cursor:pointer; font-weight:600; border-radius:12px;
-      padding:10px 14px; background:var(--ink); color:#fff; transition:transform .05s ease, box-shadow .2s ease;
-      box-shadow: 0 8px 20px rgba(30,41,59,.18);
+      appearance:none; border:none; cursor:pointer; font-weight:700; border-radius:14px;
+      padding:10px 14px; background:var(--ok); color:#fff; transition:transform .05s ease, box-shadow .2s ease;
+      box-shadow: 0 8px 20px rgba(67,185,142,.25);
     }
     .btn:hover{transform:translateY(-1px)}
     .btn:active{transform:translateY(0)}
     .btn.ghost{background:#fff; color:var(--ink); border:1px solid var(--line); box-shadow:none}
-    .btn.brand{background:var(--brand)}
+    .btn.brand{background:linear-gradient(135deg, var(--brand), var(--brand-2)); color:#0f172a; box-shadow:0 8px 20px rgba(159,230,204,.35)}
 
     /* Progress Bar */
-    .progress{height:8px; background:#e5e7eb; border-radius:999px; overflow:hidden; position:relative}
+    .progress{height:8px; background:#edf3ef; border-radius:999px; overflow:hidden; position:relative}
     .bar{height:100%; width:0; background:linear-gradient(90deg, var(--brand), var(--brand-2)); border-radius:999px}
 
-    /* Need to review card */
+    /* Review banner */
     .review{
-      display:flex; align-items:center; gap:14px; padding:16px; border:1px dashed var(--brand);
-      background:linear-gradient(0deg, rgba(140,215,196,0.08), rgba(140,215,196,0.08));
+      display:flex; align-items:center; gap:14px; padding:16px; border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(159,230,204,.18), rgba(201,240,224,.18));
       border-radius:var(--radius);
     }
     .review strong{font-weight:800}
 
     /* Recommendations */
     .reco-card{display:flex; gap:12px; align-items:flex-start; padding:14px; border:1px solid var(--line); border-radius:14px; background:#fff}
-    .reco-tag{font-size:11px; padding:3px 8px; border-radius:999px; background:#eef2ff; color:#3730a3; border:1px solid #e0e7ff}
+    .reco-tag{font-size:11px; padding:3px 8px; border-radius:999px; background:#ecfdf5; color:#134e4a; border:1px solid #d1fae5}
     .reco-list{display:grid; grid-template-columns:repeat(12,1fr); gap:12px}
     .reco-card{grid-column: span 12}
     @media (min-width:800px){ .reco-card{grid-column: span 6} }
 
-    /* Footer */
-    footer{margin:36px 0 0; padding-top:16px; border-top:1px solid var(--line); color:var(--muted); font-size:12px}
+    /* Minimal icon badge */
+    .ico{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;border:1px solid var(--line);
+      background: radial-gradient(120px 80px at 50% 0%, var(--brand-2), var(--card) 70%)}
+    .ico svg{width:22px;height:22px;stroke:#1a2a22}
 
-    /* Small helpers */
-    .kpi{display:flex; gap:18px; flex-wrap:wrap}
-    .kpi-item{display:flex; flex-direction:column; gap:6px}
-    .kpi-item b{font-size:18px}
+    footer{margin:36px 0 0; padding-top:16px; border-top:1px solid var(--line); color:var(--muted); font-size:12px}
     .spacer{height:8px}
   </style>
 </head>
@@ -132,7 +130,7 @@
           <label for="uiLang">UI</label>
           <select id="uiLang" aria-label="Interface language">
             <option value="en">English</option>
-            <option value="ru">Русский</option>
+            <option value="ru" selected>Русский</option>
             <option value="es">Español</option>
             <option value="ar">العربية</option>
           </select>
@@ -141,7 +139,7 @@
           <label for="learnLang">Learning</label>
           <select id="learnLang" aria-label="Learning language">
             <option value="en">English</option>
-            <option value="es">Español</option>
+            <option value="es" selected>Español</option>
             <option value="de">Deutsch</option>
             <option value="fr">Français</option>
             <option value="ar">العربية</option>
@@ -155,7 +153,7 @@
     <!-- KPI Row -->
     <section class="section" aria-label="overview">
       <div class="review" role="note">
-        <div style="font-weight:700">⚡️ Spaced Review</div>
+        <div style="font-weight:800">⚡️ Intervals</div>
         <div class="grow">Сегодня к повторению: <strong id="dueWords">0 слов</strong> · Серии: <strong id="streak">0 дней</strong></div>
         <button class="btn brand" id="startReview">Начать повторение</button>
       </div>
@@ -175,7 +173,7 @@
       <button class="btn ghost" id="createSet">+ Создать новый сет</button>
     </section>
 
-    <!-- Need to Repeat (inline quick entry) -->
+    <!-- Need to Repeat -->
     <section class="section" aria-labelledby="needTitle">
       <h2 id="needTitle">Надо повторить</h2>
       <div class="grid" id="needGrid"></div>
@@ -194,17 +192,16 @@
   </main>
 
   <script>
-    // ---- Mock Data (можно заменить API-запросами) ----
+    // ---- Mock Data ----
     const mockUser = {
       id: 'u_001',
       name: 'Alex',
-      uiLang: localStorage.getItem('uiLang') || 'en',
+      uiLang: localStorage.getItem('uiLang') || 'ru',
       learnLang: localStorage.getItem('learnLang') || 'es',
       streak: 4,
       dueToday: 28
     };
 
-    /** Курсы: прогресс в процентах */
     const courses = [
       { id:'c1', title:'Spanish A1 — Basics', lang:'es', lessons:24, done:12, tag:'A1' },
       { id:'c2', title:'Everyday English — Travel', lang:'en', lessons:18, done:7, tag:'Topic' },
@@ -212,7 +209,6 @@
       { id:'c4', title:'Français — Verbes 1', lang:'fr', lessons:10, done:6, tag:'Grammar' },
     ];
 
-    /** Сеты слов: количество слов, сколько изучено, сколько на повторение */
     const sets = [
       { id:'s1', title:'Restaurant phrases', lang:'es', total:80, learned:42, due:10 },
       { id:'s2', title:'Airport essentials', lang:'en', total:60, learned:23, due:5 },
@@ -221,7 +217,6 @@
       { id:'s5', title:'Work basics', lang:'es', total:55, learned:20, due:7 },
     ];
 
-    /** Рекомендации: будут фильтроваться по learnLang */
     const recommendations = [
       { id:'r1', title:'Top 100 Verbs', lang:'es', type:'Set', info:'Глаголы уровня A1–A2', tag:'Verbs' },
       { id:'r2', title:'Survival Spanish', lang:'es', type:'Course', info:'Выживание в поездке за неделю', tag:'Travel' },
@@ -236,14 +231,12 @@
     const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
 
     function fmtWords(n){
-      // простая русская форма для «слов»
       const mod10 = n % 10, mod100 = n % 100;
       if(mod10 === 1 && mod100 !== 11) return `${n} слово`;
       if(mod10 >=2 && mod10 <=4 && (mod100 < 12 || mod100 > 14)) return `${n} слова`;
       return `${n} слов`;
     }
-
-    function progress(done, total){ return Math.max(0, Math.min(100, Math.round((done/total)*100))); }
+    const progress = (done,total)=> Math.max(0, Math.min(100, Math.round((done/total)*100)));
 
     // ---- Renderers ----
     function renderKPI(){
@@ -251,12 +244,35 @@
       $('#streak').textContent = `${mockUser.streak} дней`;
     }
 
+    const iconCourse = `
+      <div class="ico" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 5h16M4 12h16M4 19h10" />
+        </svg>
+      </div>`;
+
+    const iconSet = `
+      <div class="ico" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="12" rx="2"/><path d="M7 20h10"/>
+        </svg>
+      </div>`;
+
+    const iconSR = `
+      <div class="ico" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 11h18"/>
+          <path d="M7 7h10"/>
+          <path d="M5 15h6"/>
+        </svg>
+      </div>`;
+
     function makeCourseCard(c){
       const p = progress(c.done, c.lessons);
       const el = document.createElement('div');
       el.className = 'card';
       el.innerHTML = `
-        <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--brand),var(--brand-2));display:grid;place-items:center;color:#fff;font-weight:800;">${c.lang.toUpperCase()}</div>
+        ${iconCourse}
         <div class="grow">
           <div class="pill">${c.tag}</div>
           <div class="title">${c.title}</div>
@@ -273,7 +289,7 @@
       const el = document.createElement('div');
       el.className = 'card';
       el.innerHTML = `
-        <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--brand-2));display:grid;place-items:center;color:#1f2937;font-weight:800;">${s.lang.toUpperCase()}</div>
+        ${iconSet}
         <div class="grow">
           <div class="pill">${s.lang.toUpperCase()} · ${s.total} слов</div>
           <div class="title">${s.title}</div>
@@ -292,7 +308,7 @@
       const el = document.createElement('div');
       el.className = 'card';
       el.innerHTML = `
-        <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#ffe8b5,#ffd6a5);display:grid;place-items:center;color:#1f2937;font-weight:800;">SR</div>
+        ${iconSR}
         <div class="grow">
           <div class="pill">Spaced Repetition</div>
           <div class="title">${s.title}</div>
@@ -307,7 +323,11 @@
       const el = document.createElement('div');
       el.className = 'reco-card';
       el.innerHTML = `
-        <div style="width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--brand),var(--brand-2));display:grid;place-items:center;color:#fff;font-weight:800;">${r.type[0]}</div>
+        <div class="ico" style="width:38px;height:38px;border-radius:12px" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 7h16M4 12h10M4 17h6"/>
+          </svg>
+        </div>
         <div class="grow">
           <div class="reco-tag">${r.tag}</div>
           <div class="title">${r.title}</div>
@@ -323,9 +343,7 @@
       grid.innerHTML = '';
       courses
         .filter(c => !mockUser.learnLang || c.lang === mockUser.learnLang)
-        .concat(
-          courses.filter(c => c.lang !== mockUser.learnLang) // немного перемешаем, чтобы были и другие
-        )
+        .concat(courses.filter(c => c.lang !== mockUser.learnLang))
         .slice(0,6)
         .forEach(c => grid.appendChild(makeCourseCard(c)));
     }
@@ -374,7 +392,6 @@
       uiSel.addEventListener('change', (e)=>{
         mockUser.uiLang = e.target.value;
         localStorage.setItem('uiLang', mockUser.uiLang);
-        // Здесь можно добавить загрузку переводов UI
       });
 
       learnSel.addEventListener('change', (e)=>{
@@ -387,25 +404,20 @@
         const t = e.target;
         if(t.matches('[data-course]')){
           const id = t.getAttribute('data-course');
-          // TODO: переход на страницу курса
           alert('Открываем курс: '+id);
         }
         if(t.matches('[data-open-set]')){
           const id = t.getAttribute('data-open-set');
-          // TODO: переход к сету
           alert('Открываем сет: '+id);
         }
         if(t.matches('[data-review-set]') || t.id === 'startReview'){
-          // TODO: запуск режима повторения
           alert('Запуск повторения…');
         }
         if(t.matches('[data-add-reco]')){
           const id = t.getAttribute('data-add-reco');
-          // TODO: добавить рекомендованный курс/сет в профиль
           alert('Добавлено в профиль: '+id);
         }
         if(t.id === 'createSet'){
-          // TODO: открыть модал или страницу создания сета
           alert('Создание нового сета');
         }
       });
@@ -413,7 +425,7 @@
 
     // ---- Init ----
     (function init(){
-      $('#year').textContent = new Date().getFullYear();
+      document.getElementById('year').textContent = new Date().getFullYear();
       renderAll();
       attachEvents();
     })();
