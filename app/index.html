@@ -1,1 +1,63 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>StudyArt — Личный кабинет</title>
+  <style>
+    body { font-family: system-ui, sans-serif; background:#f7f9fb; margin:0 }
+    header { background:#2f8f6b; color:#fff; padding:14px 18px; display:flex; justify-content:space-between; align-items:center }
+    main { padding:20px }
+    .user { display:flex; align-items:center; gap:12px }
+    .user img { width:40px; height:40px; border-radius:50% }
+    button { padding:8px 14px; border-radius:8px; border:1px solid #fff; background:#fff; color:#2f8f6b; cursor:pointer }
+    button:hover { background:#eef6f3 }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="user">
+      <img id="photo" alt="">
+      <div id="name">Загрузка…</div>
+    </div>
+    <button id="logout">Выйти</button>
+  </header>
+  <main>
+    <h1>Добро пожаловать!</h1>
+    <p>Это заглушка кабинета. Страницу видят только авторизованные пользователи.</p>
+  </main>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCmSTO4bu5nNA2SpPYNgjPvj2IvVxQSQqk",
+      authDomain: "studyart-6675d.firebaseapp.com",
+      projectId: "studyart-6675d",
+      storageBucket: "studyart-6675d.appspot.com",
+      messagingSenderId: "139893219770",
+      appId: "1:139893219770:web:2780393b8ee66ebc323d83"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // защита: если не авторизован — отправляем на страницу входа (корень сайта)
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        location.replace("/"); // https://studyart.app/
+        return;
+      }
+      document.getElementById("name").textContent = user.displayName || user.email || "Пользователь";
+      document.getElementById("photo").src = user.photoURL || "https://via.placeholder.com/40";
+    });
+
+    document.getElementById("logout").addEventListener("click", async () => {
+      await signOut(auth);
+      location.replace("/"); // обратно на вход
+    });
+  </script>
+</body>
+</html>
 
