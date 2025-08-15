@@ -1,63 +1,422 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>StudyArt — Личный кабинет</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Studyart — Dashboard</title>
+  <meta name="description" content="Studyart personal dashboard: courses, word sets, and spaced review." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: system-ui, sans-serif; background:#f7f9fb; margin:0 }
-    header { background:#2f8f6b; color:#fff; padding:14px 18px; display:flex; justify-content:space-between; align-items:center }
-    main { padding:20px }
-    .user { display:flex; align-items:center; gap:12px }
-    .user img { width:40px; height:40px; border-radius:50% }
-    button { padding:8px 14px; border-radius:8px; border:1px solid #fff; background:#fff; color:#2f8f6b; cursor:pointer }
-    button:hover { background:#eef6f3 }
+    :root{
+      --bg:#f7f8fb;            /* общий фон, очень светлый */
+      --card:#ffffff;          /* фон карточек */
+      --ink:#1e293b;           /* основной текст (slate-800) */
+      --muted:#64748b;         /* вторичный текст */
+      --line:#e2e8f0;          /* границы/разделители */
+      --brand:#6c8cff;         /* акцент — мягкий индиго */
+      --brand-2:#8ed1c4;       /* акцент 2 — мятный пастельный */
+      --accent:#ffd6a5;        /* акцент 3 — персик-пастель */
+      --ok:#22c55e;            /* зеленый для прогресса */
+      --warn:#f59e0b;          /* желтый для «повторить» */
+      --danger:#ef4444;        /* красный акцент */
+      --shadow: 0 6px 18px rgba(17, 24, 39, 0.06);
+      --radius: 16px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:Inter,system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: var(--bg); color: var(--ink);
+    }
+    .wrap{max-width:1152px; margin:0 auto; padding:24px 16px 48px}
+
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:5; backdrop-filter:saturate(180%) blur(6px);
+      background:linear-gradient(180deg, rgba(247,248,251,0.85), rgba(247,248,251,0.65));
+      border-bottom:1px solid var(--line);
+    }
+    .head{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 16px}
+    .brand{display:flex; align-items:center; gap:12px}
+    .logo{
+      width:40px; height:40px; border-radius:10px; display:grid; place-items:center; color:#fff;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      box-shadow: var(--shadow);
+      font-weight:700; letter-spacing:0.5px;
+    }
+    .brand h1{font-size:18px; margin:0; letter-spacing:0.2px}
+
+    .controls{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
+    .select{
+      display:flex; align-items:center; gap:8px; padding:8px 10px; border:1px solid var(--line);
+      background: var(--card); border-radius:12px; box-shadow:var(--shadow);
+    }
+    .select label{font-size:12px; color:var(--muted)}
+    .select select{border:none; background:transparent; font-weight:600; padding:2px 0}
+    .select select:focus{outline:none}
+
+    main{margin-top:16px}
+
+    /* Sections */
+    .section{margin:26px 0}
+    .section h2{margin:0 0 12px; font-size:18px}
+    .grid{display:grid; grid-template-columns:repeat(12, 1fr); gap:16px}
+
+    .card{
+      grid-column: span 12;
+      background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+      box-shadow:var(--shadow); padding:16px; display:flex; gap:16px; align-items:center;
+    }
+    @media (min-width:640px){
+      .card{grid-column: span 6}
+    }
+    @media (min-width:960px){
+      .card{grid-column: span 4}
+    }
+
+    .card .pill{font-size:11px; padding:4px 8px; border-radius:999px; background:#f1f5f9; color:var(--muted); border:1px solid var(--line)}
+    .card .title{font-weight:700; margin:2px 0 6px}
+    .meta{font-size:13px; color:var(--muted)}
+    .grow{flex:1}
+
+    .btn{
+      appearance:none; border:none; cursor:pointer; font-weight:600; border-radius:12px;
+      padding:10px 14px; background:var(--ink); color:#fff; transition:transform .05s ease, box-shadow .2s ease;
+      box-shadow: 0 8px 20px rgba(30,41,59,.18);
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn:active{transform:translateY(0)}
+    .btn.ghost{background:#fff; color:var(--ink); border:1px solid var(--line); box-shadow:none}
+    .btn.brand{background:var(--brand)}
+
+    /* Progress Bar */
+    .progress{height:8px; background:#e5e7eb; border-radius:999px; overflow:hidden; position:relative}
+    .bar{height:100%; width:0; background:linear-gradient(90deg, var(--brand), var(--brand-2)); border-radius:999px}
+
+    /* Need to review card */
+    .review{
+      display:flex; align-items:center; gap:14px; padding:16px; border:1px dashed var(--brand);
+      background:linear-gradient(0deg, rgba(140,215,196,0.08), rgba(140,215,196,0.08));
+      border-radius:var(--radius);
+    }
+    .review strong{font-weight:800}
+
+    /* Recommendations */
+    .reco-card{display:flex; gap:12px; align-items:flex-start; padding:14px; border:1px solid var(--line); border-radius:14px; background:#fff}
+    .reco-tag{font-size:11px; padding:3px 8px; border-radius:999px; background:#eef2ff; color:#3730a3; border:1px solid #e0e7ff}
+    .reco-list{display:grid; grid-template-columns:repeat(12,1fr); gap:12px}
+    .reco-card{grid-column: span 12}
+    @media (min-width:800px){ .reco-card{grid-column: span 6} }
+
+    /* Footer */
+    footer{margin:36px 0 0; padding-top:16px; border-top:1px solid var(--line); color:var(--muted); font-size:12px}
+
+    /* Small helpers */
+    .kpi{display:flex; gap:18px; flex-wrap:wrap}
+    .kpi-item{display:flex; flex-direction:column; gap:6px}
+    .kpi-item b{font-size:18px}
+    .spacer{height:8px}
   </style>
 </head>
 <body>
   <header>
-    <div class="user">
-      <img id="photo" alt="">
-      <div id="name">Загрузка…</div>
+    <div class="wrap head">
+      <div class="brand">
+        <div class="logo">SA</div>
+        <h1>Studyart</h1>
+      </div>
+      <div class="controls">
+        <div class="select">
+          <label for="uiLang">UI</label>
+          <select id="uiLang" aria-label="Interface language">
+            <option value="en">English</option>
+            <option value="ru">Русский</option>
+            <option value="es">Español</option>
+            <option value="ar">العربية</option>
+          </select>
+        </div>
+        <div class="select">
+          <label for="learnLang">Learning</label>
+          <select id="learnLang" aria-label="Learning language">
+            <option value="en">English</option>
+            <option value="es">Español</option>
+            <option value="de">Deutsch</option>
+            <option value="fr">Français</option>
+            <option value="ar">العربية</option>
+          </select>
+        </div>
+      </div>
     </div>
-    <button id="logout">Выйти</button>
   </header>
-  <main>
-    <h1>Добро пожаловать!</h1>
-    <p>Это заглушка кабинета. Страницу видят только авторизованные пользователи.</p>
+
+  <main class="wrap" id="app">
+    <!-- KPI Row -->
+    <section class="section" aria-label="overview">
+      <div class="review" role="note">
+        <div style="font-weight:700">⚡️ Spaced Review</div>
+        <div class="grow">Сегодня к повторению: <strong id="dueWords">0 слов</strong> · Серии: <strong id="streak">0 дней</strong></div>
+        <button class="btn brand" id="startReview">Начать повторение</button>
+      </div>
+    </section>
+
+    <!-- My Courses -->
+    <section class="section" aria-labelledby="myCoursesTitle">
+      <h2 id="myCoursesTitle">Мои курсы</h2>
+      <div class="grid" id="coursesGrid"></div>
+    </section>
+
+    <!-- My Word Sets -->
+    <section class="section" aria-labelledby="mySetsTitle">
+      <h2 id="mySetsTitle">Мои сеты слов</h2>
+      <div class="grid" id="setsGrid"></div>
+      <div class="spacer"></div>
+      <button class="btn ghost" id="createSet">+ Создать новый сет</button>
+    </section>
+
+    <!-- Need to Repeat (inline quick entry) -->
+    <section class="section" aria-labelledby="needTitle">
+      <h2 id="needTitle">Надо повторить</h2>
+      <div class="grid" id="needGrid"></div>
+    </section>
+
+    <!-- Recommendations -->
+    <section class="section" aria-labelledby="recoTitle">
+      <h2 id="recoTitle">Рекомендации для вас</h2>
+      <p class="meta" id="recoHint">Подборка под язык обучения.</p>
+      <div class="reco-list" id="recoList"></div>
+    </section>
+
+    <footer>
+      Studyart © <span id="year"></span> • Dashboard prototype
+    </footer>
   </main>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyCmSTO4bu5nNA2SpPYNgjPvj2IvVxQSQqk",
-      authDomain: "studyart-6675d.firebaseapp.com",
-      projectId: "studyart-6675d",
-      storageBucket: "studyart-6675d.appspot.com",
-      messagingSenderId: "139893219770",
-      appId: "1:139893219770:web:2780393b8ee66ebc323d83"
+  <script>
+    // ---- Mock Data (можно заменить API-запросами) ----
+    const mockUser = {
+      id: 'u_001',
+      name: 'Alex',
+      uiLang: localStorage.getItem('uiLang') || 'en',
+      learnLang: localStorage.getItem('learnLang') || 'es',
+      streak: 4,
+      dueToday: 28
     };
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+    /** Курсы: прогресс в процентах */
+    const courses = [
+      { id:'c1', title:'Spanish A1 — Basics', lang:'es', lessons:24, done:12, tag:'A1' },
+      { id:'c2', title:'Everyday English — Travel', lang:'en', lessons:18, done:7, tag:'Topic' },
+      { id:'c3', title:'Deutsch — Starter Pack', lang:'de', lessons:20, done:2, tag:'A1' },
+      { id:'c4', title:'Français — Verbes 1', lang:'fr', lessons:10, done:6, tag:'Grammar' },
+    ];
 
-    // защита: если не авторизован — отправляем на страницу входа (корень сайта)
-    onAuthStateChanged(auth, (user) => {
-      if (!user) {
-        location.replace("/"); // https://studyart.app/
-        return;
-      }
-      document.getElementById("name").textContent = user.displayName || user.email || "Пользователь";
-      document.getElementById("photo").src = user.photoURL || "https://via.placeholder.com/40";
-    });
+    /** Сеты слов: количество слов, сколько изучено, сколько на повторение */
+    const sets = [
+      { id:'s1', title:'Restaurant phrases', lang:'es', total:80, learned:42, due:10 },
+      { id:'s2', title:'Airport essentials', lang:'en', total:60, learned:23, due:5 },
+      { id:'s3', title:'Daily verbs', lang:'es', total:100, learned:70, due:12 },
+      { id:'s4', title:'Colors & Clothes', lang:'de', total:40, learned:12, due:3 },
+      { id:'s5', title:'Work basics', lang:'es', total:55, learned:20, due:7 },
+    ];
 
-    document.getElementById("logout").addEventListener("click", async () => {
-      await signOut(auth);
-      location.replace("/"); // обратно на вход
-    });
+    /** Рекомендации: будут фильтроваться по learnLang */
+    const recommendations = [
+      { id:'r1', title:'Top 100 Verbs', lang:'es', type:'Set', info:'Глаголы уровня A1–A2', tag:'Verbs' },
+      { id:'r2', title:'Survival Spanish', lang:'es', type:'Course', info:'Выживание в поездке за неделю', tag:'Travel' },
+      { id:'r3', title:'Listening Boost', lang:'en', type:'Course', info:'20 коротких диалогов', tag:'Listening' },
+      { id:'r4', title:'Numbers & Dates', lang:'de', type:'Set', info:'Числительные и даты', tag:'Basics' },
+      { id:'r5', title:'Pronunciation Drills', lang:'fr', type:'Course', info:'10 мини-уроков', tag:'Pronunciation' },
+      { id:'r6', title:'Frases del café', lang:'es', type:'Set', info:'Заказ в кафе и small talk', tag:'Conversation' },
+    ];
+
+    // ---- Helpers ----
+    const $ = (sel, root=document) => root.querySelector(sel);
+    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+    function fmtWords(n){
+      // простая русская форма для «слов»
+      const mod10 = n % 10, mod100 = n % 100;
+      if(mod10 === 1 && mod100 !== 11) return `${n} слово`;
+      if(mod10 >=2 && mod10 <=4 && (mod100 < 12 || mod100 > 14)) return `${n} слова`;
+      return `${n} слов`;
+    }
+
+    function progress(done, total){ return Math.max(0, Math.min(100, Math.round((done/total)*100))); }
+
+    // ---- Renderers ----
+    function renderKPI(){
+      $('#dueWords').textContent = `${fmtWords(mockUser.dueToday)}`;
+      $('#streak').textContent = `${mockUser.streak} дней`;
+    }
+
+    function makeCourseCard(c){
+      const p = progress(c.done, c.lessons);
+      const el = document.createElement('div');
+      el.className = 'card';
+      el.innerHTML = `
+        <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--brand),var(--brand-2));display:grid;place-items:center;color:#fff;font-weight:800;">${c.lang.toUpperCase()}</div>
+        <div class="grow">
+          <div class="pill">${c.tag}</div>
+          <div class="title">${c.title}</div>
+          <div class="meta">Уроков: ${c.done}/${c.lessons}</div>
+          <div class="progress" aria-label="progress"><div class="bar" style="width:${p}%"></div></div>
+        </div>
+        <button class="btn" data-course="${c.id}">Продолжить</button>
+      `;
+      return el;
+    }
+
+    function makeSetCard(s){
+      const p = progress(s.learned, s.total);
+      const el = document.createElement('div');
+      el.className = 'card';
+      el.innerHTML = `
+        <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--brand-2));display:grid;place-items:center;color:#1f2937;font-weight:800;">${s.lang.toUpperCase()}</div>
+        <div class="grow">
+          <div class="pill">${s.lang.toUpperCase()} · ${s.total} слов</div>
+          <div class="title">${s.title}</div>
+          <div class="meta">Изучено: ${s.learned} · К повторению: <b style="color:var(--warn)">${s.due}</b></div>
+          <div class="progress" aria-label="progress"><div class="bar" style="width:${p}%"></div></div>
+        </div>
+        <div style="display:flex; gap:8px;">
+          <button class="btn" data-review-set="${s.id}">Повторить</button>
+          <button class="btn ghost" data-open-set="${s.id}">Открыть</button>
+        </div>
+      `;
+      return el;
+    }
+
+    function makeNeedCard(s){
+      const el = document.createElement('div');
+      el.className = 'card';
+      el.innerHTML = `
+        <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#ffe8b5,#ffd6a5);display:grid;place-items:center;color:#1f2937;font-weight:800;">SR</div>
+        <div class="grow">
+          <div class="pill">Spaced Repetition</div>
+          <div class="title">${s.title}</div>
+          <div class="meta">Сегодня к повторению: <b>${s.due}</b> · Всего в сете: ${s.total}</div>
+        </div>
+        <button class="btn brand" data-review-set="${s.id}">Начать</button>
+      `;
+      return el;
+    }
+
+    function makeRecoCard(r){
+      const el = document.createElement('div');
+      el.className = 'reco-card';
+      el.innerHTML = `
+        <div style="width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--brand),var(--brand-2));display:grid;place-items:center;color:#fff;font-weight:800;">${r.type[0]}</div>
+        <div class="grow">
+          <div class="reco-tag">${r.tag}</div>
+          <div class="title">${r.title}</div>
+          <div class="meta">${r.info}</div>
+        </div>
+        <button class="btn" data-add-reco="${r.id}">Добавить</button>
+      `;
+      return el;
+    }
+
+    function renderCourses(){
+      const grid = $('#coursesGrid');
+      grid.innerHTML = '';
+      courses
+        .filter(c => !mockUser.learnLang || c.lang === mockUser.learnLang)
+        .concat(
+          courses.filter(c => c.lang !== mockUser.learnLang) // немного перемешаем, чтобы были и другие
+        )
+        .slice(0,6)
+        .forEach(c => grid.appendChild(makeCourseCard(c)));
+    }
+
+    function renderSets(){
+      const grid = $('#setsGrid');
+      grid.innerHTML = '';
+      sets
+        .filter(s => !mockUser.learnLang || s.lang === mockUser.learnLang)
+        .forEach(s => grid.appendChild(makeSetCard(s)));
+    }
+
+    function renderNeed(){
+      const grid = $('#needGrid');
+      grid.innerHTML = '';
+      sets
+        .filter(s => s.due > 0)
+        .sort((a,b) => b.due - a.due)
+        .slice(0,3)
+        .forEach(s => grid.appendChild(makeNeedCard(s)));
+    }
+
+    function renderReco(){
+      const list = $('#recoList');
+      list.innerHTML = '';
+      const relevant = recommendations.filter(r => r.lang === mockUser.learnLang);
+      $('#recoHint').textContent = `Показываем подборку для языка: ${mockUser.learnLang.toUpperCase()}`;
+      relevant.forEach(r => list.appendChild(makeRecoCard(r)));
+    }
+
+    function renderAll(){
+      renderKPI();
+      renderCourses();
+      renderSets();
+      renderNeed();
+      renderReco();
+    }
+
+    // ---- Events ----
+    function attachEvents(){
+      const uiSel = $('#uiLang');
+      const learnSel = $('#learnLang');
+      uiSel.value = mockUser.uiLang;
+      learnSel.value = mockUser.learnLang;
+
+      uiSel.addEventListener('change', (e)=>{
+        mockUser.uiLang = e.target.value;
+        localStorage.setItem('uiLang', mockUser.uiLang);
+        // Здесь можно добавить загрузку переводов UI
+      });
+
+      learnSel.addEventListener('change', (e)=>{
+        mockUser.learnLang = e.target.value;
+        localStorage.setItem('learnLang', mockUser.learnLang);
+        renderAll();
+      });
+
+      document.body.addEventListener('click', (e)=>{
+        const t = e.target;
+        if(t.matches('[data-course]')){
+          const id = t.getAttribute('data-course');
+          // TODO: переход на страницу курса
+          alert('Открываем курс: '+id);
+        }
+        if(t.matches('[data-open-set]')){
+          const id = t.getAttribute('data-open-set');
+          // TODO: переход к сету
+          alert('Открываем сет: '+id);
+        }
+        if(t.matches('[data-review-set]') || t.id === 'startReview'){
+          // TODO: запуск режима повторения
+          alert('Запуск повторения…');
+        }
+        if(t.matches('[data-add-reco]')){
+          const id = t.getAttribute('data-add-reco');
+          // TODO: добавить рекомендованный курс/сет в профиль
+          alert('Добавлено в профиль: '+id);
+        }
+        if(t.id === 'createSet'){
+          // TODO: открыть модал или страницу создания сета
+          alert('Создание нового сета');
+        }
+      });
+    }
+
+    // ---- Init ----
+    (function init(){
+      $('#year').textContent = new Date().getFullYear();
+      renderAll();
+      attachEvents();
+    })();
   </script>
 </body>
 </html>
-
