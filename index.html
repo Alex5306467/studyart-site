@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>StudyArt — вход и регистрация</title>
-  <meta name="description" content="StudyArt — карточки и мини-инструменты. Войдите через Google/Apple или зарегистрируйтесь по email.">
+  <meta name="description" content="Вход в StudyArt: Google / Apple или регистрация по email.">
   <style>
     :root{
       --bg:#f6fbf8; --mint:#d8f3e3; --mint-strong:#a6e3c8; --ink:#20322f; --muted:#536e67;
@@ -63,7 +63,6 @@
         </div>
 
         <div id="state" class="state"></div>
-        <div class="hint">После входа покажем имя/почту и кнопку «Выйти».</div>
       </div>
 
       <!-- Правая колонка: зачем входить -->
@@ -89,7 +88,7 @@
       GoogleAuthProvider, OAuthProvider, signInWithPopup
     } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
-    // --- ТВОЙ ПРОД КОНФИГ (studyart-6675d) ---
+    // --- PROD конфиг studyart-6675d ---
     const firebaseConfig = {
       apiKey: "AIzaSyCmSTO4bu5nNA2SpPYNgjPvj2IvVxQSQqk",
       authDomain: "studyart-6675d.firebaseapp.com",
@@ -106,54 +105,47 @@
     const state = $("#state");
     const show = (t)=>{ state.textContent = t; state.style.display="block"; };
 
-    // Email: регистрация
+    // 0) Если уже вошёл — сразу в кабинет
+    onAuthStateChanged(auth, (user) => {
+      if (user) location.replace("/app/");
+    });
+
+    // 1) Email — регистрация
     $("#email-signup").addEventListener("click", async () => {
       const email = $("#email").value.trim();
       const pass  = $("#password").value.trim();
       try {
         await createUserWithEmailAndPassword(auth, email, pass);
-        show("Аккаунт создан и выполнен вход.");
+        location.href = "/app/";
       } catch (e) { show("Ошибка регистрации: " + (e.message||e)); }
     });
 
-    // Email: вход
+    // 2) Email — вход
     $("#email-login").addEventListener("click", async () => {
       const email = $("#email").value.trim();
       const pass  = $("#password").value.trim();
       try {
         await signInWithEmailAndPassword(auth, email, pass);
-        show("Вход выполнен.");
+        location.href = "/app/";
       } catch (e) { show("Ошибка входа: " + (e.message||e)); }
     });
 
-    // Google (popup, redirect не требуется)
+    // 3) Google — вход (popup)
     $("#google-btn").addEventListener("click", async () => {
       try {
         const provider = new GoogleAuthProvider();
         await signInWithPopup(auth, provider);
+        location.href = "/app/";
       } catch (e) { show("Google: " + (e.message||e)); }
     });
 
-    // Apple (заработает после настройки в Apple Dev + включения провайдера в Firebase)
+    // 4) Apple — заработает после настройки в Apple Dev и включения в Firebase
     $("#apple-btn").addEventListener("click", async () => {
       try {
         const provider = new OAuthProvider('apple.com');
         await signInWithPopup(auth, provider);
+        location.href = "/app/";
       } catch (e) { show("Apple: " + (e.message||e)); }
-    });
-
-    // Состояние пользователя
-    onAuthStateChanged(auth, user => {
-      if (user){
-        const name  = user.displayName || "Пользователь";
-        const email = user.email || "";
-        state.innerHTML = `${name}${email ? " · " + email : ""} 
-          <button id="logout" class="btn" style="margin-left:10px">Выйти</button>`;
-        state.style.display = "block";
-        document.getElementById("logout")?.addEventListener("click", ()=> signOut(auth));
-      } else {
-        state.style.display = "none";
-      }
     });
 
     document.getElementById("y").textContent = new Date().getFullYear();
