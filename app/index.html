@@ -10,99 +10,49 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root{
-      /* Пастельная зелёная тема под стиль карточек */
-      --bg:#f6fbf7;            /* общий фон */
-      --bg-2:#eef8f1;          /* мягкий градиент фона */
-      --card:#ffffff;          /* карточки */
-      --ink:#0f172a;           /* основной текст */
-      --muted:#5b6777;         /* вторичный */
-      --line:rgba(15,23,42,.08); /* деликатные линии */
-      --brand:#9fe6cc;         /* мятный пастель */
-      --brand-2:#c9f0e0;       /* светлый мятный */
-      --accent:#e9f7ef;        /* светло-зелёный для заливок */
-      --ok:#43b98e;            /* зелёная кнопка */
-      --warn:#efb661;          /* янтарный */
-      --danger:#f08a8a;        /* мягкий красный */
-      --shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
-      --radius: 18px;
+      --bg:#f6fbf7; --bg-2:#eef8f1; --card:#fff; --ink:#0f172a; --muted:#5b6777; --line:rgba(15,23,42,.08);
+      --brand:#9fe6cc; --brand-2:#c9f0e0; --ok:#43b98e; --warn:#efb661; --shadow:0 12px 32px rgba(15,23,42,.08); --radius:18px;
     }
     *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Helvetica Neue,Arial;
-      color:var(--ink);
-      background: radial-gradient(1200px 600px at 50% -200px, var(--bg-2), transparent 60%), var(--bg);
-    }
-    .wrap{max-width:1152px; margin:0 auto; padding:24px 16px 56px}
-
-    /* Header */
-    header{position:sticky; top:0; z-index:5; backdrop-filter: blur(8px);
-      background:linear-gradient(180deg, rgba(246,251,247,0.85), rgba(246,251,247,0.65)); border-bottom:1px solid var(--line)}
-    .head{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 16px}
-    .brand{display:flex; align-items:center; gap:12px}
-    .logo{width:40px; height:40px; border-radius:12px; display:grid; place-items:center; color:#0f172a; font-weight:700; letter-spacing:0.3px; background: linear-gradient(135deg, var(--brand), var(--brand-2)); border:1px solid var(--line); box-shadow: var(--shadow)}
-    .brand h1{font-size:18px; margin:0}
-
-    .controls{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
-    .select{display:flex; align-items:center; gap:8px; padding:8px 10px; border:1px solid var(--line); background: var(--card); border-radius:12px; box-shadow:var(--shadow)}
-    .select label{font-size:12px; color:var(--muted)}
-    .select select{border:none; background:transparent; font-weight:600; padding:2px 0}
-    .select select:focus{outline:none}
-
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Helvetica Neue,Arial;background:radial-gradient(1200px 600px at 50% -200px,var(--bg-2),transparent 60%),var(--bg);color:var(--ink)}
+    .wrap{max-width:1152px;margin:0 auto;padding:24px 16px 56px}
+    header{position:sticky;top:0;z-index:5;backdrop-filter:blur(8px);background:linear-gradient(180deg,rgba(246,251,247,.85),rgba(246,251,247,.65));border-bottom:1px solid var(--line)}
+    .head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 16px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,var(--brand),var(--brand-2));border:1px solid var(--line);box-shadow:var(--shadow);font-weight:700;color:#0f172a}
+    .controls{display:flex;gap:10px;flex-wrap:wrap}
+    .select{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--line);background:var(--card);border-radius:12px;box-shadow:var(--shadow)}
+    .select label{font-size:12px;color:var(--muted)}
+    .select select{border:none;background:transparent;font-weight:600}
     main{margin-top:16px}
-
-    /* Sections */
     .section{margin:26px 0}
-    .section h2{margin:0 0 12px; font-size:18px}
-    .grid{display:grid; grid-template-columns:repeat(12, 1fr); gap:16px}
-
-    .card{grid-column: span 12; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); padding:16px; display:flex; gap:16px; align-items:center}
-    @media (min-width:640px){ .card{grid-column: span 6} }
-    @media (min-width:960px){ .card{grid-column: span 4} }
-
-    .card .pill{font-size:11px; padding:4px 8px; border-radius:999px; background:#f1f5f9; color:var(--muted); border:1px solid #e8edf2}
-    .card .title{font-weight:800; margin:2px 0 6px}
-    .meta{font-size:13px; color:var(--muted)}
-    .grow{flex:1}
-
-    .btn{appearance:none; border:none; cursor:pointer; font-weight:700; border-radius:14px; padding:10px 14px; background:var(--ok); color:#fff; transition:transform .05s ease, box-shadow .2s ease; box-shadow: 0 8px 20px rgba(67,185,142,.25)}
-    .btn:hover{transform:translateY(-1px)}
-    .btn:active{transform:translateY(0)}
-    .btn.ghost{background:#fff; color:var(--ink); border:1px solid var(--line); box-shadow:none}
-    .btn.brand{background:linear-gradient(135deg, var(--brand), var(--brand-2)); color:#0f172a; box-shadow:0 8px 20px rgba(159,230,204,.35)}
-
-    /* Progress Bar */
-    .progress{height:8px; background:#edf3ef; border-radius:999px; overflow:hidden; position:relative}
-    .bar{height:100%; width:0; background:linear-gradient(90deg, var(--brand), var(--brand-2)); border-radius:999px}
-
-    /* Review banner */
-    .review{display:flex; align-items:center; gap:14px; padding:16px; border:1px solid var(--line); background:linear-gradient(180deg, rgba(159,230,204,.18), rgba(201,240,224,.18)); border-radius:var(--radius)}
-
-    /* Recommendations */
-    .reco-card{display:flex; gap:12px; align-items:flex-start; padding:14px; border:1px solid var(--line); border-radius:14px; background:#fff}
-    .reco-tag{font-size:11px; padding:3px 8px; border-radius:999px; background:#ecfdf5; color:#134e4a; border:1px solid #d1fae5}
-    .reco-list{display:grid; grid-template-columns:repeat(12,1fr); gap:12px}
-    .reco-card{grid-column: span 12}
-    @media (min-width:800px){ .reco-card{grid-column: span 6} }
-
-    /* Minimal icon badge */
-    .ico{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;border:1px solid var(--line); background: radial-gradient(120px 80px at 50% 0%, var(--brand-2), var(--card) 70%)}
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+    .card{grid-column:span 12;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px;display:flex;gap:16px;align-items:center}
+    @media (min-width:640px){.card{grid-column:span 6}}@media (min-width:960px){.card{grid-column:span 4}}
+    .pill{font-size:11px;padding:4px 8px;border-radius:999px;background:#f1f5f9;color:var(--muted);border:1px solid #e8edf2}
+    .title{font-weight:800;margin:2px 0 6px}
+    .meta{font-size:13px;color:var(--muted)}
+    .btn{appearance:none;border:none;cursor:pointer;font-weight:700;border-radius:14px;padding:10px 14px;background:var(--ok);color:#fff;box-shadow:0 8px 20px rgba(67,185,142,.25)}
+    .btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line);box-shadow:none}
+    .btn.brand{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#0f172a;box-shadow:0 8px 20px rgba(159,230,204,.35)}
+    .progress{height:8px;background:#edf3ef;border-radius:999px;overflow:hidden}
+    .bar{height:100%;background:linear-gradient(90deg,var(--brand),var(--brand-2))}
+    .review{display:flex;align-items:center;gap:14px;padding:16px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(159,230,204,.18),rgba(201,240,224,.18));border-radius:var(--radius)}
+    .ico{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;border:1px solid var(--line);background:radial-gradient(120px 80px at 50% 0%,var(--brand-2),var(--card) 70%)}
     .ico svg{width:22px;height:22px;stroke:#1a2a22}
-
-    footer{margin:36px 0 0; padding-top:16px; border-top:1px solid var(--line); color:var(--muted); font-size:12px}
+    .hidden{display:none!important}
+    .toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
+    .link{background:none;border:none;color:#0f766e;cursor:pointer;font-weight:700;padding:6px 10px;border-radius:10px}
+    .link:hover{background:rgba(15,118,110,.08)}
     .spacer{height:8px}
   </style>
 </head>
 <body>
   <header>
     <div class="wrap head">
-      <div class="brand">
-        <div class="logo">SA</div>
-        <h1 id="title">Studyart</h1>
-      </div>
+      <div class="brand"><div class="logo">SA</div><h1 id="siteTitle" style="margin:0">Studyart</h1></div>
       <div class="controls">
-        <div class="select">
-          <label for="uiLang">UI</label>
+        <div class="select"><label for="uiLang">UI</label>
           <select id="uiLang" aria-label="Interface language">
             <option value="en">English</option>
             <option value="ru" selected>Русский</option>
@@ -115,8 +65,7 @@
             <option value="zh">中文</option>
           </select>
         </div>
-        <div class="select">
-          <label for="learnLang">Learning</label>
+        <div class="select"><label for="learnLang">Learning</label>
           <select id="learnLang" aria-label="Learning language">
             <option value="en">English</option>
             <option value="es" selected>Español</option>
@@ -142,14 +91,26 @@
       </div>
     </section>
 
-    <!-- My Courses -->
-    <section class="section" aria-labelledby="myCoursesTitle">
-      <h2 id="myCoursesTitle">Мои курсы</h2>
+    <!-- Dashboard: My Courses preview -->
+    <section class="section" aria-labelledby="myCoursesTitle" id="myCoursesSection">
+      <div class="toolbar">
+        <h2 id="myCoursesTitle" style="cursor:pointer;margin:0">Мои курсы</h2>
+        <button class="link" id="viewAllCourses">Показать все</button>
+      </div>
       <div class="grid" id="coursesGrid"></div>
     </section>
 
+    <!-- Courses Page -->
+    <section class="section hidden" id="coursesPage" aria-labelledby="coursesPageTitle">
+      <div class="toolbar">
+        <h2 id="coursesPageTitle" style="margin:0">Курсы</h2>
+        <button class="link" id="backToDashboard">← Назад</button>
+      </div>
+      <div class="grid" id="coursesDetailGrid"></div>
+    </section>
+
     <!-- My Word Sets -->
-    <section class="section" aria-labelledby="mySetsTitle">
+    <section class="section" aria-labelledby="mySetsTitle" id="setsSection">
       <h2 id="mySetsTitle">Мои сеты слов</h2>
       <div class="grid" id="setsGrid"></div>
       <div class="spacer"></div>
@@ -157,516 +118,209 @@
     </section>
 
     <!-- Need to Review -->
-    <section class="section" aria-labelledby="needTitle">
+    <section class="section" aria-labelledby="needTitle" id="needSection">
       <h2 id="needTitle">Надо повторить</h2>
       <div class="grid" id="needGrid"></div>
     </section>
 
     <!-- Recommendations -->
-    <section class="section" aria-labelledby="recoTitle">
+    <section class="section" aria-labelledby="recoTitle" id="recoSection">
       <h2 id="recoTitle">Рекомендации для вас</h2>
       <p class="meta" id="recoHint">Подборка под язык обучения.</p>
       <div class="reco-list" id="recoList"></div>
     </section>
 
-    <footer>
-      Studyart © <span id="year"></span> • Dashboard prototype
-    </footer>
+    <footer>Studyart © <span id="year"></span> • Dashboard prototype</footer>
   </main>
 
   <script>
-    // ---- i18n ----
+    // ---------- Utils ----------
+    const $  = (sel, root=document) => root.querySelector(sel);
+    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+    // ---------- i18n ----------
     const i18n = {
-      ru: {
-        intervals:"⚡️ Интервалы",
-        kpiDue:(n)=>`Сегодня к повторению: ${fmtWords(n)}`,
-        kpiStreak:(n)=>`Серии: ${n} дней`,
-        myCourses:"Мои курсы",
-        mySets:"Мои сеты слов",
-        need:"Надо повторить",
-        recommendations:"Рекомендации для вас",
-        recoHint:(lng)=>`Подборка под язык обучения: ${lng.toUpperCase()}`,
-        btnStart:"Начать повторение",
-        btnContinue:"Продолжить",
-        btnRepeat:"Повторить",
-        btnOpen:"Открыть",
-        btnCreateSet:"+ Создать новый сет",
-        lessons:(d,t)=>`Уроков: ${d}/${t}`,
-        setPill:(code,total)=>`${code.toUpperCase()} · ${total} слов`,
-        learnedDue:(learned,due)=>`Изучено: ${learned} · К повторению: `,
-        sr:"Интервальные повторения",
-        todayDue:(due,total)=>`Сегодня к повторению: ${due} · Всего в сете: ${total}`,
-        added:"Добавлено в профиль: ",
-        openCourse:"Открываем курс: ",
-        openSet:"Открываем сет: ",
-        createSet:"Создание нового сета"
-      },
-      en: {
-        intervals:"⚡️ Intervals",
-        kpiDue:(n)=>`Due today: ${n} words`,
-        kpiStreak:(n)=>`Streak: ${n} days`,
-        myCourses:"My Courses",
-        mySets:"My Word Sets",
-        need:"Need to Review",
-        recommendations:"Recommended for you",
-        recoHint:(lng)=>`Showing picks for: ${lng.toUpperCase()}`,
-        btnStart:"Start Review",
-        btnContinue:"Continue",
-        btnRepeat:"Review",
-        btnOpen:"Open",
-        btnCreateSet:"+ Create new set",
-        lessons:(d,t)=>`Lessons: ${d}/${t}`,
-        setPill:(code,total)=>`${code.toUpperCase()} · ${total} words`,
-        learnedDue:(learned,due)=>`Learned: ${learned} · Due: `,
-        sr:"Spaced Repetition",
-        todayDue:(due,total)=>`Due today: ${due} · Total: ${total}`,
-        added:"Added to profile: ",
-        openCourse:"Open course: ",
-        openSet:"Open set: ",
-        createSet:"Create new set"
-      },
-      es: {
-        intervals:"⚡️ Intervalos",
-        kpiDue:(n)=>`Para hoy: ${n} palabras`,
-        kpiStreak:(n)=>`Racha: ${n} días`,
-        myCourses:"Mis cursos",
-        mySets:"Mis sets de palabras",
-        need:"Para repasar",
-        recommendations:"Recomendado para ti",
-        recoHint:(lng)=>`Mostrando sugerencias para: ${lng.toUpperCase()}`,
-        btnStart:"Empezar repaso",
-        btnContinue:"Continuar",
-        btnRepeat:"Repasar",
-        btnOpen:"Abrir",
-        btnCreateSet:"+ Crear nuevo set",
-        lessons:(d,t)=>`Lecciones: ${d}/${t}`,
-        setPill:(code,total)=>`${code.toUpperCase()} · ${total} palabras`,
-        learnedDue:(learned,due)=>`Aprendidas: ${learned} · A repasar: `,
-        sr:"Repetición espaciada",
-        todayDue:(due,total)=>`Para hoy: ${due} · Total: ${total}`,
-        added:"Añadido al perfil: ",
-        openCourse:"Abrir curso: ",
-        openSet:"Abrir set: ",
-        createSet:"Crear nuevo set"
-      },
-      fr: {
-        intervals:"⚡️ Intervalles",
-        kpiDue:(n)=>`À réviser aujourd’hui : ${n} mots`,
-        kpiStreak:(n)=>`Série : ${n} jours`,
-        myCourses:"Mes cours",
-        mySets:"Mes ensembles de mots",
-        need:"À réviser",
-        recommendations:"Recommandé pour vous",
-        recoHint:(lng)=>`Suggestions pour : ${lng.toUpperCase()}`,
-        btnStart:"Commencer",
-        btnContinue:"Continuer",
-        btnRepeat:"Réviser",
-        btnOpen:"Ouvrir",
-        btnCreateSet:"+ Créer un nouvel ensemble",
-        lessons:(d,t)=>`Leçons : ${d}/${t}`,
-        setPill:(code,total)=>`${code.toUpperCase()} · ${total} mots`,
-        learnedDue:(learned,due)=>`Appris : ${learned} · À réviser : `,
-        sr:"Répétition espacée",
-        todayDue:(due,total)=>`À réviser aujourd’hui : ${due} · Total : ${total}`,
-        added:"Ajouté au profil : ",
-        openCourse:"Ouvrir le cours : ",
-        openSet:"Ouvrir l’ensemble : ",
-        createSet:"Créer un ensemble"
-      },
-      de: {
-        intervals:"⚡️ Intervalle",
-        kpiDue:(n)=>`Heute fällig: ${n} Wörter`,
-        kpiStreak:(n)=>`Serie: ${n} Tage`,
-        myCourses:"Meine Kurse",
-        mySets:"Meine Wortsets",
-        need:"Zu wiederholen",
-        recommendations:"Empfehlungen für dich",
-        recoHint:(lng)=>`Auswahl für: ${lng.toUpperCase()}`,
-        btnStart:"Wiederholen starten",
-        btnContinue:"Fortsetzen",
-        btnRepeat:"Wiederholen",
-        btnOpen:"Öffnen",
-        btnCreateSet:"+ Neues Set erstellen",
-        lessons:(d,t)=>`Lektionen: ${d}/${t}`,
-        setPill:(code,total)=>`${code.toUpperCase()} · ${total} Wörter`,
-        learnedDue:(learned,due)=>`Gelernt: ${learned} · Fällig: `,
-        sr:"Spaced Repetition",
-        todayDue:(due,total)=>`Heute fällig: ${due} · Gesamt: ${total}`,
-        added:"Zum Profil hinzugefügt: ",
-        openCourse:"Kurs öffnen: ",
-        openSet:"Set öffnen: ",
-        createSet:"Neues Set erstellen"
-      },
-      it: {
-        intervals:"⚡️ Intervalli",
-        kpiDue:(n)=>`Da ripassare oggi: ${n} parole`,
-        kpiStreak:(n)=>`Serie: ${n} giorni`,
-        myCourses:"I miei corsi",
-        mySets:"I miei set di parole",
-        need:"Da ripassare",
-        recommendations:"Consigliati per te",
-        recoHint:(lng)=>`Proposte per: ${lng.toUpperCase()}`,
-        btnStart:"Avvia ripasso",
-        btnContinue:"Continua",
-        btnRepeat:"Ripassa",
-        btnOpen:"Apri",
-        btnCreateSet:"+ Crea nuovo set",
-        lessons:(d,t)=>`Lezioni: ${d}/${t}`,
-        setPill:(code,total)=>`${code.toUpperCase()} · ${total} parole`,
-        learnedDue:(learned,due)=>`Imparate: ${learned} · Da ripassare: `,
-        sr:"Ripetizione dilazionata",
-        todayDue:(due,total)=>`Oggi: ${due} · Totale: ${total}`,
-        added:"Aggiunto al profilo: ",
-        openCourse:"Apri corso: ",
-        openSet:"Apri set: ",
-        createSet:"Crea nuovo set"
-      },
-      ar: {
-        intervals:"⚡️ تكرار متباعد",
-        kpiDue:(n)=>`المستحق اليوم: ${n} كلمة`,
-        kpiStreak:(n)=>`سلسلة: ${n} يومًا`,
-        myCourses:"دوراتي",
-        mySets:"مجموعات الكلمات",
-        need:"للمراجعة",
-        recommendations:"مقترح لك",
-        recoHint:(lng)=>`نعرض اقتراحات لـ: ${lng.toUpperCase()}`,
-        btnStart:"ابدأ المراجعة",
-        btnContinue:"متابعة",
-        btnRepeat:"راجع",
-        btnOpen:"فتح",
-        btnCreateSet:"+ إنشاء مجموعة جديدة",
-        lessons:(d,t)=>`الدروس: ${d}/${t}`,
-        setPill:(code,total)=>`${code.toUpperCase()} · ${total} كلمة`,
-        learnedDue:(learned,due)=>`تم تعلم: ${learned} · للمراجعة: `,
-        sr:"تكرار متباعد",
-        todayDue:(due,total)=>`المستحق اليوم: ${due} · المجموع: ${total}`,
-        added:"أضيف إلى الملف: ",
-        openCourse:"فتح الدورة: ",
-        openSet:"فتح المجموعة: ",
-        createSet:"إنشاء مجموعة"
-      },
-      ja: {
-        intervals:"⚡️ インターバル",
-        kpiDue:(n)=>`今日の復習: ${n} 単語`,
-        kpiStreak:(n)=>`連続: ${n} 日`,
-        myCourses:"マイコース",
-        mySets:"単語セット",
-        need:"復習が必要",
-        recommendations:"あなたへのおすすめ",
-        recoHint:(lng)=>`学習言語: ${lng.toUpperCase()}`,
-        btnStart:"復習を開始",
-        btnContinue:"続ける",
-        btnRepeat:"復習",
-        btnOpen:"開く",
-        btnCreateSet:"+ 新しいセットを作成",
-        lessons:(d,t)=>`レッスン: ${d}/${t}`,
-        setPill:(code,total)=>`${code.toUpperCase()} · ${total} 単語`,
-        learnedDue:(learned,due)=>`学習済み: ${learned} · 要復習: `,
-        sr:"間隔反復",
-        todayDue:(due,total)=>`今日: ${due} · 合計: ${total}`,
-        added:"プロフィールに追加: ",
-        openCourse:"コースを開く: ",
-        openSet:"セットを開く: ",
-        createSet:"新しいセットを作成"
-      },
-      zh: {
-        intervals:"⚡️ 间隔复习",
-        kpiDue:(n)=>`今日复习：${n} 个单词`,
-        kpiStreak:(n)=>`连续：${n} 天`,
-        myCourses:"我的课程",
-        mySets:"我的单词集",
-        need:"需要复习",
-        recommendations:"为你推荐",
-        recoHint:(lng)=>`显示语言：${lng.toUpperCase()}`,
-        btnStart:"开始复习",
-        btnContinue:"继续",
-        btnRepeat:"复习",
-        btnOpen:"打开",
-        btnCreateSet:"+ 新建单词集",
-        lessons:(d,t)=>`课时：${d}/${t}`,
-        setPill:(code,total)=>`${code.toUpperCase()} · ${total} 个单词`,
-        learnedDue:(learned,due)=>`已学：${learned} · 待复习： `,
-        sr:"间隔复习",
-        todayDue:(due,total)=>`今日复习：${due} · 总计：${total}`,
-        added:"已添加到个人资料：",
-        openCourse:"打开课程：",
-        openSet:"打开词集：",
-        createSet:"新建单词集"
-      }
+      ru:{intervals:"⚡️ Интервалы",kpiDue:n=>`Сегодня к повторению: ${fmtWords(n)}`,kpiStreak:n=>`Серии: ${n} дней`,myCourses:"Мои курсы",mySets:"Мои сеты слов",need:"Надо повторить",recommendations:"Рекомендации для вас",recoHint:lng=>`Подборка под язык обучения: ${lng.toUpperCase()}`,btnStart:"Начать повторение",btnContinue:"Продолжить",btnRepeat:"Повторить",btnOpen:"Открыть",btnCreateSet:"+ Создать новый сет",lessons:(d,t)=>`Уроков: ${d}/${t}`,setPill:(code,total)=>`${code.toUpperCase()} · ${total} слов`,learnedDue:(l,d)=>`Изучено: ${l} · К повторению: `,sr:"Интервальные повторения",todayDue:(due,total)=>`Сегодня к повторению: ${due} · Всего в сете: ${total}`,added:"Добавлено в профиль: ",openCourse:"Открываем курс: ",openSet:"Открываем сет: ",createSet:"Создание нового сета",showAll:"Показать все",back:"← Назад",coursesTitle:"Курсы"},
+      en:{intervals:"⚡️ Intervals",kpiDue:n=>`Due today: ${n} words`,kpiStreak:n=>`Streak: ${n} days`,myCourses:"My Courses",mySets:"My Word Sets",need:"Need to Review",recommendations:"Recommended for you",recoHint:lng=>`Showing picks for: ${lng.toUpperCase()}`,btnStart:"Start Review",btnContinue:"Continue",btnRepeat:"Review",btnOpen:"Open",btnCreateSet:"+ Create new set",lessons:(d,t)=>`Lessons: ${d}/${t}`,setPill:(code,total)=>`${code.toUpperCase()} · ${total} words`,learnedDue:(l,d)=>`Learned: ${l} · Due: `,sr:"Spaced Repetition",todayDue:(due,total)=>`Due today: ${due} · Total: ${total}`,added:"Added to profile: ",openCourse:"Open course: ",openSet:"Open set: ",createSet:"Create new set",showAll:"Show all",back:"← Back",coursesTitle:"Courses"},
+      es:{intervals:"⚡️ Intervalos",kpiDue:n=>`Para hoy: ${n} palabras`,kpiStreak:n=>`Racha: ${n} días`,myCourses:"Mis cursos",mySets:"Mis sets de palabras",need:"Para repasar",recommendations:"Recomendado para ti",recoHint:lng=>`Mostrando sugerencias para: ${lng.toUpperCase()}`,btnStart:"Empezar repaso",btnContinue:"Continuar",btnRepeat:"Repasar",btnOpen:"Abrir",btnCreateSet:"+ Crear nuevo set",lessons:(d,t)=>`Lecciones: ${d}/${t}`,setPill:(code,total)=>`${code.toUpperCase()} · ${total} palabras`,learnedDue:(l,d)=>`Aprendidas: ${l} · A repasar: `,sr:"Repetición espaciada",todayDue:(due,total)=>`Para hoy: ${due} · Total: ${total}`,added:"Añadido al perfil: ",openCourse:"Abrir curso: ",openSet:"Abrir set: ",createSet:"Crear nuevo set",showAll:"Ver todo",back:"← Atrás",coursesTitle:"Cursos"},
+      fr:{intervals:"⚡️ Intervalles",kpiDue:n=>`À réviser aujourd’hui : ${n} mots`,kpiStreak:n=>`Série : ${n} jours`,myCourses:"Mes cours",mySets:"Mes ensembles de mots",need:"À réviser",recommendations:"Recommandé pour vous",recoHint:lng=>`Suggestions pour : ${lng.toUpperCase()}`,btnStart:"Commencer",btnContinue:"Continuer",btnRepeat:"Réviser",btnOpen:"Ouvrir",btnCreateSet:"+ Créer un nouvel ensemble",lessons:(d,t)=>`Leçons : ${d}/${t}`,setPill:(code,total)=>`${code.toUpperCase()} · ${total} mots`,learnedDue:(l,d)=>`Appris : ${l} · À réviser : `,sr:"Répétition espacée",todayDue:(due,total)=>`À réviser aujourd’hui : ${due} · Total : ${total}`,added:"Ajouté au profil : ",openCourse:"Ouvrir le cours : ",openSet:"Ouvrir l’ensemble : ",createSet:"Créer un ensemble",showAll:"Tout afficher",back:"← Retour",coursesTitle:"Cours"},
+      de:{intervals:"⚡️ Intervalle",kpiDue:n=>`Heute fällig: ${n} Wörter`,kpiStreak:n=>`Serie: ${n} Tage`,myCourses:"Meine Kurse",mySets:"Meine Wortsets",need:"Zu wiederholen",recommendations:"Empfehlungen für dich",recoHint:lng=>`Auswahl für: ${lng.toUpperCase()}`,btnStart:"Wiederholen starten",btnContinue:"Fortsetzen",btnRepeat:"Wiederholen",btnOpen:"Öffnen",btnCreateSet:"+ Neues Set erstellen",lessons:(d,t)=>`Lektionen: ${d}/${t}`,setPill:(code,total)=>`${code.toUpperCase()} · ${total} Wörter`,learnedDue:(l,d)=>`Gelernt: ${l} · Fällig: `,sr:"Spaced Repetition",todayDue:(due,total)=>`Heute fällig: ${due} · Gesamt: ${total}`,added:"Zum Profil hinzugefügt: ",openCourse:"Kurs öffnen: ",openSet:"Set öffnen: ",createSet:"Neues Set erstellen",showAll:"Alle anzeigen",back:"← Zurück",coursesTitle:"Kurse"},
+      it:{intervals:"⚡️ Intervalli",kpiDue:n=>`Da ripassare oggi: ${n} parole`,kpiStreak:n=>`Serie: ${n} giorni`,myCourses:"I miei corsi",mySets:"I miei set di parole",need:"Da ripassare",recommendations:"Consigliati per te",recoHint:lng=>`Proposte per: ${lng.toUpperCase()}`,btnStart:"Avvia ripasso",btnContinue:"Continua",btnRepeat:"Ripassa",btnOpen:"Apri",btnCreateSet:"+ Crea nuovo set",lessons:(d,t)=>`Lezioni: ${d}/${t}`,setPill:(code,total)=>`${code.toUpperCase()} · ${total} parole`,learnedDue:(l,d)=>`Imparate: ${l} · Da ripassare: `,sr:"Ripetizione dilazionata",todayDue:(due,total)=>`Oggi: ${due} · Totale: ${total}`,added:"Aggiunto al profilo: ",openCourse:"Apri corso: ",openSet:"Apri set: ",createSet:"Crea nuovo set",showAll:"Mostra tutto",back:"← Indietro",coursesTitle:"Corsi"},
+      ar:{intervals:"⚡️ تكرار متباعد",kpiDue:n=>`المستحق اليوم: ${n} كلمة`,kpiStreak:n=>`سلسلة: ${n} يومًا`,myCourses:"دوراتي",mySets:"مجموعات الكلمات",need:"للمراجعة",recommendations:"مقترح لك",recoHint:lng=>`نعرض اقتراحات لـ: ${lng.toUpperCase()}`,btnStart:"ابدأ المراجعة",btnContinue:"متابعة",btnRepeat:"راجع",btnOpen:"فتح",btnCreateSet:"+ إنشاء مجموعة جديدة",lessons:(d,t)=>`الدروس: ${d}/${t}`,setPill:(code,total)=>`${code.toUpperCase()} · ${total} كلمة`,learnedDue:(l,d)=>`تم تعلم: ${l} · للمراجعة: `,sr:"تكرار متباعد",todayDue:(due,total)=>`المستحق اليوم: ${due} · المجموع: ${total}`,added:"أضيف إلى الملف: ",openCourse:"فتح الدورة: ",openSet:"فتح المجموعة: ",createSet:"إنشاء مجموعة",showAll:"عرض الكل",back:"← رجوع",coursesTitle:"الدورات"},
+      ja:{intervals:"⚡️ インターバル",kpiDue:n=>`今日の復習: ${n} 単語`,kpiStreak:n=>`連続: ${n} 日`,myCourses:"マイコース",mySets:"単語セット",need:"復習が必要",recommendations:"あなたへのおすすめ",recoHint:lng=>`学習言語: ${lng.toUpperCase()}`,btnStart:"復習を開始",btnContinue:"続ける",btnRepeat:"復習",btnOpen:"開く",btnCreateSet:"+ 新しいセットを作成",lessons:(d,t)=>`レッスン: ${d}/${t}`,setPill:(code,total)=>`${code.toUpperCase()} · ${total} 単語`,learnedDue:(l,d)=>`学習済み: ${l} · 要復習: `,sr:"間隔反復",todayDue:(due,total)=>`今日: ${due} · 合計: ${total}`,added:"プロフィールに追加: ",openCourse:"コースを開く: ",openSet:"セットを開く: ",createSet:"新しいセットを作成",showAll:"すべて表示",back:"← 戻る",coursesTitle:"コース"},
+      zh:{intervals:"⚡️ 间隔复习",kpiDue:n=>`今日复习：${n} 个单词`,kpiStreak:n=>`连续：${n} 天`,myCourses:"我的课程",mySets:"我的单词集",need:"需要复习",recommendations:"为你推荐",recoHint:lng=>`显示语言：${lng.toUpperCase()}`,btnStart:"开始复习",btnContinue:"继续",btnRepeat:"复习",btnOpen:"打开",btnCreateSet:"+ 新建单词集",lessons:(d,t)=>`课时：${d}/${t}`,setPill:(code,total)=>`${code.toUpperCase()} · ${total} 个单词`,learnedDue:(l,d)=>`已学：${l} · 待复习： `,sr:"间隔复习",todayDue:(due,total)=>`今日复习：${due} · 总计：${total}`,added:"已添加到个人资料：",openCourse:"打开课程：",openSet:"打开词集：",createSet:"新建单词集",showAll:"显示全部",back:"← 返回",coursesTitle:"课程"}
     };
 
-    // ---- Mock Data ----
-    const mockUser = {
-      id: 'u_001',
-      name: 'Alex',
-      uiLang: localStorage.getItem('uiLang') || 'ru',
-      learnLang: localStorage.getItem('learnLang') || 'es',
-      streak: 4,
-      dueToday: 28
-    };
-
+    // ---------- Data ----------
+    const mockUser = { id:'u_001', name:'Alex', uiLang: localStorage.getItem('uiLang')||'ru', learnLang: localStorage.getItem('learnLang')||'es', streak:4, dueToday:28 };
     const courses = [
       { id:'c1', title:'Spanish A1 — Basics', lang:'es', lessons:24, done:12, tag:'A1' },
       { id:'c2', title:'Everyday English — Travel', lang:'en', lessons:18, done:7, tag:'Topic' },
       { id:'c3', title:'Deutsch — Starter Pack', lang:'de', lessons:20, done:2, tag:'A1' },
-      { id:'c4', title:'Français — Verbes 1', lang:'fr', lessons:10, done:6, tag:'Grammar' },
+      { id:'c4', title:'Français — Verbes 1', lang:'fr', lessons:10, done:6, tag:'Grammar' }
     ];
-
     const sets = [
       { id:'s1', title:'Restaurant phrases', lang:'es', total:80, learned:42, due:10 },
       { id:'s2', title:'Airport essentials', lang:'en', total:60, learned:23, due:5 },
       { id:'s3', title:'Daily verbs', lang:'es', total:100, learned:70, due:12 },
       { id:'s4', title:'Colors & Clothes', lang:'de', total:40, learned:12, due:3 },
-      { id:'s5', title:'Work basics', lang:'es', total:55, learned:20, due:7 },
+      { id:'s5', title:'Work basics', lang:'es', total:55, learned:20, due:7 }
     ];
-
     const recommendations = [
       { id:'r1', title:'Top 100 Verbs', lang:'es', type:'Set', info:'A1–A2 verbs', tag:'Verbs' },
       { id:'r2', title:'Survival Spanish', lang:'es', type:'Course', info:'One-week travel survival', tag:'Travel' },
       { id:'r3', title:'Listening Boost', lang:'en', type:'Course', info:'20 short dialogues', tag:'Listening' },
       { id:'r4', title:'Numbers & Dates', lang:'de', type:'Set', info:'Numbers and dates', tag:'Basics' },
       { id:'r5', title:'Pronunciation Drills', lang:'fr', type:'Course', info:'10 mini-lessons', tag:'Pronunciation' },
-      { id:'r6', title:'Frases del café', lang:'es', type:'Set', info:'Ordering and small talk', tag:'Conversation' },
+      { id:'r6', title:'Frases del café', lang:'es', type:'Set', info:'Ordering and small talk', tag:'Conversation' }
     ];
 
-    // ---- Helpers ----
-    const $ = (sel, root=document) => root.querySelector(sel);
-    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
-
+    // ---------- Helpers ----------
     function fmtWords(n){
-      if(mockUser.uiLang === 'en') return `${n} words`;
-      const mod10 = n % 10, mod100 = n % 100;
-      if(mod10 === 1 && mod100 !== 11) return `${n} слово`;
-      if(mod10 >=2 && mod10 <=4 && (mod100 < 12 || mod100 > 14)) return `${n} слова`;
-      return `${n} слов`;
+      if(mockUser.uiLang==='en') return `${n} words`;
+      const mod10=n%10, mod100=n%100; if(mod10===1&&mod100!==11) return `${n} слово`; if(mod10>=2&&mod10<=4&&(mod100<12||mod100>14)) return `${n} слова`; return `${n} слов`;
     }
-    const progress = (done,total)=> Math.max(0, Math.min(100, Math.round((done/total)*100)));
-    const t = (key)=> i18n[mockUser.uiLang][key];
+    const progress=(d,t)=>Math.max(0,Math.min(100,Math.round((d/t)*100)));
 
-    // ---- Renderers ----
-    function renderKPI(){
-      const stats = $('#reviewStats');
-      const title = $('#reviewTitle');
-      const btn = $('#startReview');
-      if(stats) stats.textContent = `${i18n[mockUser.uiLang].kpiDue(mockUser.dueToday)} · ${i18n[mockUser.uiLang].kpiStreak(mockUser.streak)}`;
-      if(title) title.textContent = i18n[mockUser.uiLang].intervals;
-      if(btn) btn.textContent = i18n[mockUser.uiLang].btnStart;
-    }
-
-    const iconCourse = `
-      <div class="ico" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M4 5h16M4 12h16M4 19h10" />
-        </svg>
-      </div>`;
-
-    const iconSet = `
-      <div class="ico" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="4" width="18" height="12" rx="2"/><path d="M7 20h10"/>
-        </svg>
-      </div>`;
-
-    const iconSR = `
-      <div class="ico" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M3 11h18"/>
-          <path d="M7 7h10"/>
-          <path d="M5 15h6"/>
-        </svg>
-      </div>`;
+    // ---------- Components ----------
+    const iconCourse = `<div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16M4 12h16M4 19h10"/></svg></div>`;
+    const iconSet    = `<div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M7 20h10"/></svg></div>`;
+    const iconSR     = `<div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h18"/><path d="M7 7h10"/><path d="M5 15h6"/></svg></div>`;
 
     function makeCourseCard(c){
-      const p = progress(c.done, c.lessons);
-      const el = document.createElement('div');
-      el.className = 'card';
-      el.innerHTML = `
-        ${iconCourse}
+      const p=progress(c.done,c.lessons);
+      const el=document.createElement('div'); el.className='card';
+      el.innerHTML = `${iconCourse}
         <div class="grow">
           <div class="pill">${c.tag}</div>
           <div class="title">${c.title}</div>
           <div class="meta">${i18n[mockUser.uiLang].lessons(c.done,c.lessons)}</div>
           <div class="progress" aria-label="progress"><div class="bar" style="width:${p}%"></div></div>
         </div>
-        <button class="btn" data-course="${c.id}">${i18n[mockUser.uiLang].btnContinue}</button>
-      `;
+        <button class="btn" data-course="${c.id}">${i18n[mockUser.uiLang].btnContinue}</button>`;
       return el;
     }
-
     function makeSetCard(s){
-      const p = progress(s.learned, s.total);
-      const el = document.createElement('div');
-      el.className = 'card';
-      el.innerHTML = `
-        ${iconSet}
+      const p=progress(s.learned,s.total); const el=document.createElement('div'); el.className='card';
+      el.innerHTML = `${iconSet}
         <div class="grow">
-          <div class="pill">${i18n[mockUser.uiLang].setPill(s.lang, s.total)}</div>
+          <div class="pill">${i18n[mockUser.uiLang].setPill(s.lang,s.total)}</div>
           <div class="title">${s.title}</div>
           <div class="meta">${i18n[mockUser.uiLang].learnedDue(s.learned,s.due)}<b style="color:var(--warn)">${s.due}</b></div>
           <div class="progress" aria-label="progress"><div class="bar" style="width:${p}%"></div></div>
         </div>
-        <div style="display:flex; gap:8px;">
-          <button class="btn" data-review-set="${s.id}">${i18n[mockUser.uiLang].btnRepeat}</button>
-          <button class="btn ghost" data-open-set="${s.id}">${i18n[mockUser.uiLang].btnOpen}</button>
-        </div>
-      `;
+        <div style="display:flex;gap:8px"><button class="btn" data-review-set="${s.id}">${i18n[mockUser.uiLang].btnRepeat}</button><button class="btn ghost" data-open-set="${s.id}">${i18n[mockUser.uiLang].btnOpen}</button></div>`;
       return el;
     }
-
     function makeNeedCard(s){
-      const el = document.createElement('div');
-      el.className = 'card';
-      el.innerHTML = `
-        ${iconSR}
+      const el=document.createElement('div'); el.className='card';
+      el.innerHTML = `${iconSR}
         <div class="grow">
           <div class="pill">${i18n[mockUser.uiLang].sr}</div>
           <div class="title">${s.title}</div>
           <div class="meta">${i18n[mockUser.uiLang].todayDue(s.due,s.total)}</div>
         </div>
-        <button class="btn brand" data-review-set="${s.id}">${i18n[mockUser.uiLang].btnStart}</button>
-      `;
+        <button class="btn brand" data-review-set="${s.id}">${i18n[mockUser.uiLang].btnStart}</button>`;
       return el;
     }
-
     function makeRecoCard(r){
-      const el = document.createElement('div');
-      el.className = 'reco-card';
-      el.innerHTML = `
-        <div class="ico" style="width:38px;height:38px;border-radius:12px" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 7h16M4 12h10M4 17h6"/>
-          </svg>
-        </div>
-        <div class="grow">
-          <div class="reco-tag">${r.tag}</div>
-          <div class="title">${r.title}</div>
-          <div class="meta">${r.info}</div>
-        </div>
-        <button class="btn" data-add-reco="${r.id}">${i18n[mockUser.uiLang].btnOpen}</button>
-      `;
+      const el=document.createElement('div'); el.className='reco-card';
+      el.innerHTML = `<div class="ico" style="width:38px;height:38px;border-radius:12px" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"/><path d="M4 12h10"/><path d="M4 17h6"/></svg></div>
+        <div class="grow"><div class="reco-tag">${r.tag}</div><div class="title">${r.title}</div><div class="meta">${r.info}</div></div>
+        <button class="btn" data-add-reco="${r.id}">${i18n[mockUser.uiLang].btnOpen}</button>`;
       return el;
     }
 
+    // ---------- Renderers & Pages ----------
+    function renderKPI(){
+      const stats=$('#reviewStats'), title=$('#reviewTitle'), btn=$('#startReview');
+      stats&&(stats.textContent=`${i18n[mockUser.uiLang].kpiDue(mockUser.dueToday)} · ${i18n[mockUser.uiLang].kpiStreak(mockUser.streak)}`);
+      title&&(title.textContent=i18n[mockUser.uiLang].intervals);
+      btn&&(btn.textContent=i18n[mockUser.uiLang].btnStart);
+    }
     function renderCourses(){
-      const grid = $('#coursesGrid');
-      if(!grid) return; grid.innerHTML = '';
-      courses
-        .filter(c => !mockUser.learnLang || c.lang === mockUser.learnLang)
-        .concat(courses.filter(c => c.lang !== mockUser.learnLang))
-        .slice(0,6)
-        .forEach(c => grid.appendChild(makeCourseCard(c)));
+      const grid=$('#coursesGrid'); if(!grid) return; grid.innerHTML='';
+      const list=courses.filter(c=>!mockUser.learnLang||c.lang===mockUser.learnLang).concat(courses.filter(c=>c.lang!==mockUser.learnLang)).slice(0,6);
+      list.forEach(c=>grid.appendChild(makeCourseCard(c)));
     }
-
-    function renderSets(){
-      const grid = $('#setsGrid');
-      if(!grid) return; grid.innerHTML = '';
-      sets
-        .filter(s => !mockUser.learnLang || s.lang === mockUser.learnLang)
-        .forEach(s => grid.appendChild(makeSetCard(s)));
+    function renderCoursesPage(){
+      const grid=$('#coursesDetailGrid'); if(!grid) return; grid.innerHTML='';
+      const list=courses.filter(c=>!mockUser.learnLang||c.lang===mockUser.learnLang);
+      if(list.length===0){ const empty=document.createElement('div'); empty.className='card'; empty.innerHTML=`<div class="grow"><div class="title">Нет курсов для выбранного языка</div><div class="meta">Выберите другой язык обучения</div></div>`; grid.appendChild(empty); return; }
+      list.forEach(c=>grid.appendChild(makeCourseCard(c)));
     }
-
-    function renderNeed(){
-      const grid = $('#needGrid');
-      if(!grid) return; grid.innerHTML = '';
-      sets
-        .filter(s => s.due > 0)
-        .sort((a,b) => b.due - a.due)
-        .slice(0,3)
-        .forEach(s => grid.appendChild(makeNeedCard(s)));
-    }
-
-    function renderReco(){
-      const list = $('#recoList');
-      const hint = $('#recoHint');
-      if(!list || !hint) return; list.innerHTML = '';
-      const relevant = recommendations.filter(r => r.lang === mockUser.learnLang);
-      hint.textContent = i18n[mockUser.uiLang].recoHint(mockUser.learnLang);
-      relevant.forEach(r => list.appendChild(makeRecoCard(r)));
-    }
+    function renderSets(){ const grid=$('#setsGrid'); if(!grid) return; grid.innerHTML=''; sets.filter(s=>!mockUser.learnLang||s.lang===mockUser.learnLang).forEach(s=>grid.appendChild(makeSetCard(s))); }
+    function renderNeed(){ const grid=$('#needGrid'); if(!grid) return; grid.innerHTML=''; sets.filter(s=>s.due>0).sort((a,b)=>b.due-a.due).slice(0,3).forEach(s=>grid.appendChild(makeNeedCard(s))); }
+    function renderReco(){ const list=$('#recoList'), hint=$('#recoHint'); if(!list||!hint) return; list.innerHTML=''; hint.textContent=i18n[mockUser.uiLang].recoHint(mockUser.learnLang); recommendations.filter(r=>r.lang===mockUser.learnLang).forEach(r=>list.appendChild(makeRecoCard(r))); }
 
     function applyI18n(){
-      document.documentElement.lang = mockUser.uiLang;
-      document.documentElement.dir = (mockUser.uiLang === 'ar') ? 'rtl' : 'ltr';
-      const t1=$('#myCoursesTitle'), t2=$('#mySetsTitle'), t3=$('#needTitle'), t4=$('#recoTitle'), btn=$('#createSet');
-      if(t1) t1.textContent = t('myCourses');
-      if(t2) t2.textContent = t('mySets');
-      if(t3) t3.textContent = t('need');
-      if(t4) t4.textContent = t('recommendations');
-      if(btn) btn.textContent = t('btnCreateSet');
+      document.documentElement.lang=mockUser.uiLang; document.documentElement.dir=(mockUser.uiLang==='ar')?'rtl':'ltr';
+      const t=i18n[mockUser.uiLang];
+      $('#myCoursesTitle')&&($('#myCoursesTitle').textContent=t.myCourses);
+      $('#viewAllCourses')&&($('#viewAllCourses').textContent=t.showAll);
+      $('#coursesPageTitle')&&($('#coursesPageTitle').textContent=t.coursesTitle);
+      $('#backToDashboard')&&($('#backToDashboard').textContent=t.back);
+      $('#mySetsTitle')&&($('#mySetsTitle').textContent=t.mySets);
+      $('#needTitle')&&($('#needTitle').textContent=t.need);
+      $('#recoTitle')&&($('#recoTitle').textContent=t.recommendations);
+      $('#createSet')&&($('#createSet').textContent=t.btnCreateSet);
       renderKPI();
     }
 
-    function renderAll(){
-      applyI18n();
-      renderCourses();
-      renderSets();
-      renderNeed();
-      renderReco();
+    function showCoursesPage(){
+      $('#coursesPage')?.classList.remove('hidden');
+      $('#myCoursesSection')?.classList.add('hidden');
+      $('#setsSection')?.classList.add('hidden');
+      $('#needSection')?.classList.add('hidden');
+      $('#recoSection')?.classList.add('hidden');
+      renderCoursesPage();
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+    function showDashboard(){
+      $('#coursesPage')?.classList.add('hidden');
+      $('#myCoursesSection')?.classList.remove('hidden');
+      $('#setsSection')?.classList.remove('hidden');
+      $('#needSection')?.classList.remove('hidden');
+      $('#recoSection')?.classList.remove('hidden');
+      renderCourses(); renderSets(); renderNeed(); renderReco();
+      window.scrollTo({top:0,behavior:'smooth'});
     }
 
-    // ---- Events ----
+    function renderAll(){ applyI18n(); renderCourses(); renderSets(); renderNeed(); renderReco(); }
+
+    // ---------- Events ----------
     function attachEvents(){
-      const uiSel = $('#uiLang');
-      const learnSel = $('#learnLang');
-      if(uiSel) uiSel.value = mockUser.uiLang;
-      if(learnSel) learnSel.value = mockUser.learnLang;
-
-      uiSel && uiSel.addEventListener('change', (e)=>{
-        mockUser.uiLang = e.target.value;
-        localStorage.setItem('uiLang', mockUser.uiLang);
-        renderAll();
-      });
-
-      learnSel && learnSel.addEventListener('change', (e)=>{
-        mockUser.learnLang = e.target.value;
-        localStorage.setItem('learnLang', mockUser.learnLang);
-        renderAll();
-      });
-
-      document.body.addEventListener('click', (e)=>{
-        const tEl = e.target;
-        if(tEl.matches && tEl.matches('[data-course]')){
-          const id = tEl.getAttribute('data-course');
-          alert(i18n[mockUser.uiLang].openCourse + id);
-        }
-        if(tEl.matches && tEl.matches('[data-open-set]')){
-          const id = tEl.getAttribute('data-open-set');
-          alert(i18n[mockUser.uiLang].openSet + id);
-        }
-        if((tEl.matches && tEl.matches('[data-review-set]')) || tEl.id === 'startReview'){
-          alert('…');
-        }
-        if(tEl.matches && tEl.matches('[data-add-reco]')){
-          const id = tEl.getAttribute('data-add-reco');
-          alert(i18n[mockUser.uiLang].added + id);
-        }
-        if(tEl.id === 'createSet'){
-          alert(i18n[mockUser.uiLang].createSet);
-        }
+      const uiSel=$('#uiLang'), learnSel=$('#learnLang');
+      uiSel&&(uiSel.value=mockUser.uiLang);
+      learnSel&&(learnSel.value=mockUser.learnLang);
+      uiSel&&uiSel.addEventListener('change',e=>{mockUser.uiLang=e.target.value;localStorage.setItem('uiLang',mockUser.uiLang);renderAll();});
+      learnSel&&learnSel.addEventListener('change',e=>{mockUser.learnLang=e.target.value;localStorage.setItem('learnLang',mockUser.learnLang);renderAll();});
+      document.body.addEventListener('click',e=>{
+        const t=e.target;
+        if(t.id==='myCoursesTitle'||t.id==='viewAllCourses') return showCoursesPage();
+        if(t.id==='backToDashboard') return showDashboard();
+        if(t.matches&&t.matches('[data-course]')){alert(i18n[mockUser.uiLang].openCourse + t.getAttribute('data-course'));}
+        if(t.matches&&t.matches('[data-open-set]')){alert(i18n[mockUser.uiLang].openSet + t.getAttribute('data-open-set'));}
+        if((t.matches&&t.matches('[data-review-set]'))||t.id==='startReview'){alert('…');}
+        if(t.matches&&t.matches('[data-add-reco]')){alert(i18n[mockUser.uiLang].added + t.getAttribute('data-add-reco'));}
+        if(t.id==='createSet'){alert(i18n[mockUser.uiLang].createSet);} 
       });
     }
 
-    // ---- Smoke tests ----
+    // ---------- Smoke Tests ----------
     function runTests(){
-      const mustExist = ['reviewTitle','reviewStats','startReview','coursesGrid','setsGrid','needGrid','recoList','recoHint','myCoursesTitle','mySetsTitle','needTitle','recoTitle','createSet','year'];
-      const exists = mustExist.every(id => document.getElementById(id));
-      const results = [];
-      results.push({test:'elements_present', pass: exists});
-      results.push({test:'courses_rendered', pass: $('#coursesGrid').children.length > 0});
-      results.push({test:'sets_rendered', pass: $('#setsGrid').children.length > 0});
-      results.push({test:'need_rendered', pass: $('#needGrid').children.length > 0});
-      results.push({test:'reco_rendered', pass: $('#recoList').children.length > 0});
+      const needIds=['reviewTitle','reviewStats','startReview','coursesGrid','setsGrid','needGrid','recoList','recoHint','myCoursesTitle','mySetsTitle','needTitle','recoTitle','createSet','year'];
+      const results=[]; results.push({test:'all_ids_present',pass:needIds.every(id=>document.getElementById(id))});
+      results.push({test:'dashboard_render',pass:$('#coursesGrid').children.length>=0});
+      showCoursesPage(); results.push({test:'courses_page_visible',pass:!$('#coursesPage').classList.contains('hidden')});
+      showDashboard(); results.push({test:'back_to_dashboard',pass:$('#coursesPage').classList.contains('hidden')});
       console.table(results);
     }
 
-    // ---- Init ----
+    // ---------- Init ----------
     (function init(){
-      const yearEl = document.getElementById('year');
-      if(yearEl) yearEl.textContent = new Date().getFullYear();
-      renderAll();
-      attachEvents();
-      // run smoke tests once DOM rendered
-      runTests();
+      const yearEl=document.getElementById('year'); yearEl&&(yearEl.textContent=new Date().getFullYear());
+      renderAll(); attachEvents(); runTests();
     })();
   </script>
 </body>
