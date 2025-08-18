@@ -5,18 +5,41 @@
   <title>Studyart — Личный кабинет</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <link rel="stylesheet" href="../styles/main.css" />
+  <style>
+    /* мелкие правки для RTL */
+    html[dir="rtl"] body { direction: rtl; }
+    html[dir="rtl"] .lang-switch { flex-direction: row-reverse; }
+    html[dir="rtl"] .kpis { justify-content: flex-start; }
+  </style>
 </head>
 <body>
   <!-- Шапка -->
   <header class="subnav">
     <div class="bar">
       <div class="logo">Studyart</div>
+
       <div class="lang-switch">
-        <span class="small">Мой язык:</span>
-        <select><option>English</option><option>Русский</option></select>
-        <span class="small">Изучаю:</span>
-        <select><option>English</option><option>Español</option><option>Deutsch</option></select>
-        <a class="btn" href="./sets.html">Сеты</a>
+        <span class="small" id="ui-label">Мой язык:</span>
+        <select id="ui-select">
+          <option value="ru">Русский</option>
+          <option value="en">English</option>
+          <option value="fr">Français</option>
+          <option value="de">Deutsch</option>
+          <option value="it">Italiano</option>
+          <option value="ar">العربية</option>
+        </select>
+
+        <span class="small" id="learn-label">Изучаю:</span>
+        <select id="learn-select">
+          <option value="en">English</option>
+          <option value="ru">Русский</option>
+          <option value="fr">Français</option>
+          <option value="de">Deutsch</option>
+          <option value="it">Italiano</option>
+          <option value="ar">العربية</option>
+        </select>
+
+        <a class="btn" href="./sets.html" id="sets-link">Сеты</a>
       </div>
     </div>
   </header>
@@ -24,69 +47,69 @@
   <!-- Блок уведомления/герой -->
   <section class="hero">
     <div class="band">
-      <span class="badge">⚡ Интервалы</span>
+      <span class="badge" id="badge-intervals">⚡ Интервалы</span>
       <div class="kpis">
-        <span>на сегодня: <span class="muted">28 слов</span></span>
-        <span>серия: <span class="muted">4 дня</span></span>
+        <span id="kpi-today">на сегодня: <span class="muted">28 слов</span></span>
+        <span id="kpi-streak">серия: <span class="muted">4 дня</span></span>
       </div>
-      <a class="btn ok" href="./review.html?id=es-ru-basic">Начать повторение</a>
+      <a class="btn ok" href="./review.html?id=es-ru-basic" id="start-review">Начать повторение</a>
     </div>
   </section>
 
   <!-- Мои курсы -->
   <section>
-    <div class="container"><h2>Мои курсы</h2></div>
+    <div class="container"><h2 id="h-courses">Мои курсы</h2></div>
     <div class="grid">
       <a class="card" href="#">
         <div class="label">Spanish A1 — Basics</div>
-        <div class="small">Уроков: 12/24</div>
+        <div class="small" id="lessons-1">Уроков: 12/24</div>
         <div class="progress-mini mt-2"><div style="width:50%"></div></div>
-        <div class="mt-2"><span class="btn ok">Продолжить</span></div>
+        <div class="mt-2"><span class="btn ok" id="continue-1">Продолжить</span></div>
       </a>
       <a class="card" href="#">
         <div class="label">Everyday English — Travel</div>
-        <div class="small">Уроков: 7/18</div>
+        <div class="small" id="lessons-2">Уроков: 7/18</div>
         <div class="progress-mini mt-2"><div style="width:38%"></div></div>
-        <div class="mt-2"><span class="btn ok">Продолжить</span></div>
+        <div class="mt-2"><span class="btn ok" id="continue-2">Продолжить</span></div>
       </a>
       <a class="card" href="#">
         <div class="label">Deutsch — Starter Pack</div>
-        <div class="small">Уроков: 2/20</div>
+        <div class="small" id="lessons-3">Уроков: 2/20</div>
         <div class="progress-mini mt-2"><div style="width:10%"></div></div>
-        <div class="mt-2"><span class="btn ok">Продолжить</span></div>
+        <div class="mt-2"><span class="btn ok" id="continue-3">Продолжить</span></div>
       </a>
     </div>
   </section>
 
   <!-- Мои сеты слов -->
   <section>
-    <div class="container"><h2>Мои сеты слов</h2></div>
+    <div class="container"><h2 id="h-sets">Мои сеты слов</h2></div>
     <div class="grid">
       <article class="card">
-        <div class="small muted">ES · 80 слов</div>
+        <div class="small muted" id="meta-1">ES · 80 слов</div>
         <div class="label">phrases</div>
-        <div class="small">Выучено: 42 • к повторению: <span class="label" style="color:#0ea5e9">10</span></div>
+        <div class="small" id="known-1">Выучено: 42 • к повторению: <span class="label" style="color:#0ea5e9">10</span></div>
         <div class="mt-2" style="display:flex;gap:8px">
-          <a class="btn ok" href="./review.html?id=es-ru-basic">Повторить</a>
-          <a class="btn" href="./sets.html">Открыть</a>
+          <a class="btn ok" href="./review.html?id=es-ru-basic" id="review-1">Повторить</a>
+          <a class="btn" href="./sets.html" id="open-1">Открыть</a>
         </div>
       </article>
       <article class="card">
-        <div class="small muted">ES · 100 слов</div>
+        <div class="small muted" id="meta-2">ES · 100 слов</div>
         <div class="label">verbs</div>
-        <div class="small">Выучено: 70 • к повторению: <span class="label" style="color:#0ea5e9">12</span></div>
+        <div class="small" id="known-2">Выучено: 70 • к повторению: <span class="label" style="color:#0ea5e9">12</span></div>
         <div class="mt-2" style="display:flex;gap:8px">
-          <a class="btn ok" href="./review.html?id=es-ru-basic">Повторить</a>
-          <a class="btn" href="./sets.html">Открыть</a>
+          <a class="btn ok" href="./review.html?id=es-ru-basic" id="review-2">Повторить</a>
+          <a class="btn" href="./sets.html" id="open-2">Открыть</a>
         </div>
       </article>
       <article class="card">
-        <div class="small muted">ES · 55 слов</div>
+        <div class="small muted" id="meta-3">ES · 55 слов</div>
         <div class="label">work basics</div>
-        <div class="small">Выучено: 20 • к повторению: <span class="label" style="color:#0ea5e9">7</span></div>
+        <div class="small" id="known-3">Выучено: 20 • к повторению: <span class="label" style="color:#0ea5e9">7</span></div>
         <div class="mt-2" style="display:flex;gap:8px">
-          <a class="btn ok" href="./review.html?id=es-ru-basic">Повторить</a>
-          <a class="btn" href="./sets.html">Открыть</a>
+          <a class="btn ok" href="./review.html?id=es-ru-basic" id="review-3">Повторить</a>
+          <a class="btn" href="./sets.html" id="open-3">Открыть</a>
         </div>
       </article>
     </div>
@@ -94,15 +117,162 @@
 
   <!-- Рекомендованные -->
   <section>
-    <div class="container"><h2>Рекомендованные сеты</h2></div>
+    <div class="container"><h2 id="h-reco">Рекомендованные сеты</h2></div>
     <div class="grid">
       <article class="card span-2">
         <ul style="margin:0 0 8px 18px">
-          <li><a href="./review.html?id=es-ru-basic">Basic Phrases</a></li>
-          <li><a href="./review.html?id=travel">Travel Pack</a></li>
+          <li><a href="./review.html?id=es-ru-basic" id="reco-1">Basic Phrases</a></li>
+          <li><a href="./review.html?id=travel" id="reco-2">Travel Pack</a></li>
         </ul>
       </article>
     </div>
   </section>
+
+  <script>
+    // --- Тексты интерфейса ---
+    const T = {
+      ru: {
+        uiLabel: "Мой язык:", learnLabel: "Изучаю:", sets: "Сеты",
+        badge: "⚡ Интервалы", kpiToday: "на сегодня: <span class='muted'>28 слов</span>",
+        kpiStreak: "серия: <span class='muted'>4 дня</span>",
+        start: "Начать повторение", hCourses: "Мои курсы", hSets: "Мои сеты слов",
+        lessons: (a,b)=>`Уроков: ${a}/${b}`, cont: "Продолжить",
+        metaWords: (code, n)=>`${code} · ${n} слов`,
+        known: (k, r)=>`Выучено: ${k} • к повторению: <span class="label" style="color:#0ea5e9">${r}</span>`,
+        review: "Повторить", open: "Открыть", hReco: "Рекомендованные сеты"
+      },
+      en: {
+        uiLabel: "UI:", learnLabel: "Learning:", sets: "Sets",
+        badge: "⚡ Intervals", kpiToday: "for today: <span class='muted'>28 words</span>",
+        kpiStreak: "streak: <span class='muted'>4 days</span>",
+        start: "Start review", hCourses: "My courses", hSets: "My word sets",
+        lessons: (a,b)=>`Lessons: ${a}/${b}`, cont: "Continue",
+        metaWords: (code, n)=>`${code} · ${n} words`,
+        known: (k, r)=>`Learned: ${k} • to review: <span class="label" style="color:#0ea5e9">${r}</span>`,
+        review: "Review", open: "Open", hReco: "Recommended sets"
+      },
+      fr: {
+        uiLabel: "Interface :", learnLabel: "J'apprends :", sets: "Sets",
+        badge: "⚡ Intervalles", kpiToday: "pour aujourd'hui : <span class='muted'>28 mots</span>",
+        kpiStreak: "série : <span class='muted'>4 jours</span>",
+        start: "Commencer la révision", hCourses: "Mes cours", hSets: "Mes sets de mots",
+        lessons: (a,b)=>`Leçons : ${a}/${b}`, cont: "Continuer",
+        metaWords: (code, n)=>`${code} · ${n} mots`,
+        known: (k, r)=>`Appris : ${k} • à réviser : <span class="label" style="color:#0ea5e9">${r}</span>`,
+        review: "Réviser", open: "Ouvrir", hReco: "Sets recommandés"
+      },
+      de: {
+        uiLabel: "UI:", learnLabel: "Lerne:", sets: "Sets",
+        badge: "⚡ Intervalle", kpiToday: "für heute: <span class='muted'>28 Wörter</span>",
+        kpiStreak: "Serie: <span class='muted'>4 Tage</span>",
+        start: "Wiederholung starten", hCourses: "Meine Kurse", hSets: "Meine Wort-Sets",
+        lessons: (a,b)=>`Lektionen: ${a}/${b}`, cont: "Weiter",
+        metaWords: (code, n)=>`${code} · ${n} Wörter`,
+        known: (k, r)=>`Gelernt: ${k} • zu wiederholen: <span class="label" style="color:#0ea5e9">${r}</span>`,
+        review: "Wiederholen", open: "Öffnen", hReco: "Empfohlene Sets"
+      },
+      it: {
+        uiLabel: "UI:", learnLabel: "Studio:", sets: "Set",
+        badge: "⚡ Intervalli", kpiToday: "per oggi: <span class='muted'>28 parole</span>",
+        kpiStreak: "serie: <span class='muted'>4 giorni</span>",
+        start: "Inizia ripasso", hCourses: "I miei corsi", hSets: "I miei set di parole",
+        lessons: (a,b)=>`Lezioni: ${a}/${b}`, cont: "Continua",
+        metaWords: (code, n)=>`${code} · ${n} parole`,
+        known: (k, r)=>`Imparate: ${k} • da ripassare: <span class="label" style="color:#0ea5e9">${r}</span>`,
+        review: "Ripassa", open: "Apri", hReco: "Set consigliati"
+      },
+      ar: {
+        uiLabel: "واجهة:", learnLabel: "أتعلم:", sets: "المجموعات",
+        badge: "⚡ الفواصل", kpiToday: "لليوم: <span class='muted'>28 كلمة</span>",
+        kpiStreak: "سلسلة: <span class='muted'>4 أيام</span>",
+        start: "ابدأ المراجعة", hCourses: "دوراتي", hSets: "مجموعات الكلمات",
+        lessons: (a,b)=>`الدروس: ${a}/${b}`, cont: "متابعة",
+        metaWords: (code, n)=>`${code} · ${n} كلمة`,
+        known: (k, r)=>`تم تعلم: ${k} • للمراجعة: <span class="label" style="color:#0ea5e9">${r}</span>`,
+        review: "راجِع", open: "افتح", hReco: "مجموعات مُقترحة"
+      }
+    };
+
+    // --- Инициализация выбора языков ---
+    const uiSel = document.getElementById('ui-select');
+    const learnSel = document.getElementById('learn-select');
+
+    function getDefaultLang(){
+      const saved = localStorage.getItem('uiLang');
+      if(saved) return saved;
+      const nav = (navigator.language || 'ru').slice(0,2).toLowerCase();
+      return ['ru','en','fr','de','it','ar'].includes(nav)?nav:'ru';
+    }
+    function getDefaultLearn(){
+      return localStorage.getItem('learnLang') || 'en';
+    }
+
+    uiSel.value = getDefaultLang();
+    learnSel.value = getDefaultLearn();
+
+    function applyUILang(lang){
+      const tr = T[lang] || T.ru;
+
+      // rtl/ltr
+      document.documentElement.lang = lang;
+      document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+
+      // заголовки/лейблы
+      document.getElementById('ui-label').textContent = tr.uiLabel;
+      document.getElementById('learn-label').textContent = tr.learnLabel;
+      document.getElementById('sets-link').textContent = tr.sets;
+
+      document.getElementById('badge-intervals').textContent = tr.badge;
+      document.getElementById('kpi-today').innerHTML = tr.kpiToday;
+      document.getElementById('kpi-streak').innerHTML = tr.kpiStreak;
+      document.getElementById('start-review').textContent = tr.start;
+
+      document.getElementById('h-courses').textContent = tr.hCourses;
+      document.getElementById('h-sets').textContent = tr.hSets;
+      document.getElementById('h-reco').textContent = tr.hReco;
+
+      // карточки курсов
+      document.getElementById('lessons-1').textContent = tr.lessons(12,24);
+      document.getElementById('lessons-2').textContent = tr.lessons(7,18);
+      document.getElementById('lessons-3').textContent = tr.lessons(2,20);
+      document.getElementById('continue-1').textContent = tr.cont;
+      document.getElementById('continue-2').textContent = tr.cont;
+      document.getElementById('continue-3').textContent = tr.cont;
+
+      // мета и кнопки сетов
+      document.getElementById('meta-1').textContent = tr.metaWords('ES',80);
+      document.getElementById('meta-2').textContent = tr.metaWords('ES',100);
+      document.getElementById('meta-3').textContent = tr.metaWords('ES',55);
+
+      document.getElementById('known-1').innerHTML = tr.known(42,10);
+      document.getElementById('known-2').innerHTML = tr.known(70,12);
+      document.getElementById('known-3').innerHTML = tr.known(20,7);
+
+      document.getElementById('review-1').textContent = tr.review;
+      document.getElementById('review-2').textContent = tr.review;
+      document.getElementById('review-3').textContent = tr.review;
+
+      document.getElementById('open-1').textContent = tr.open;
+      document.getElementById('open-2').textContent = tr.open;
+
+      // подписи рекомендованных оставим как названия наборов (брендовые)
+      // при желании можно тоже локализовать:
+      // document.getElementById('reco-1').textContent = ...
+      // document.getElementById('reco-2').textContent = ...
+    }
+
+    applyUILang(uiSel.value);
+
+    uiSel.addEventListener('change', () => {
+      localStorage.setItem('uiLang', uiSel.value);
+      applyUILang(uiSel.value);
+    });
+
+    learnSel.addEventListener('change', () => {
+      localStorage.setItem('learnLang', learnSel.value);
+      // На будущее: здесь будем подтягивать «Рекомендованные сеты» под язык обучения
+      // fetch(`/api/reco?lang=${learnSel.value}`) → render
+    });
+  </script>
 </body>
 </html>
