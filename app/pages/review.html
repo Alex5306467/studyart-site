@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <title>Карточки — тренировка</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="../styles/main.css" />
+  <style>
+    /* Дополнительные стили для тренажёра */
+    .wrap{max-width:1100px;margin:24px auto;padding:12px}
+    .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+    .stats{color:var(--muted);font-size:14px}
+    .progress{height:8px;background:#eef1f5;border:1px solid var(--line);
+      border-radius:999px;overflow:hidden}
+    .progress>div{height:100%;width:0;background:var(--ok);transition:width .25s ease}
+
+    .layout{display:grid;grid-template-columns:1fr 320px;gap:16px}
+    @media(max-width:900px){.layout{grid-template-columns:1fr}}
+
+    .flash{background:#fff;border:1px solid var(--line);border-radius:16px;
+      box-shadow:var(--shadow);height:320px;display:grid;place-items:center;
+      padding:24px;user-select:none;cursor:pointer;perspective:1000px}
+    .card3d{position:relative;width:100%;height:100%;display:grid;place-items:center}
+    .face{font-size:32px;text-align:center;max-width:90%;
+      transition:transform .4s ease,opacity .4s ease;transform-style:preserve-3d}
+    .front{transform:rotateY(0deg)}
+    .back{position:absolute;opacity:0;transform:rotateY(-180deg)}
+    .flipped .front{opacity:0;transform:rotateY(180deg)}
+    .flipped .back{opacity:1;transform:rotateY(0)}
+
+    .hint{color:var(--muted);font-size:14px;margin-top:6px;text-align:center}
+    .controls{display:flex;gap:12px;justify-content:center;margin-top:10px;flex-wrap:wrap}
+    .btn.wide{min-width:160px}
+
+    .side{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:12px}
+    .side h4{margin:4px 6px 8px 6px}
+    .list{display:flex;flex-direction:column;gap:8px;max-height:420px;overflow:auto}
+    .row{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--line);
+      border-radius:12px}
+    .row.active{border-color:var(--ok)}
+    .dot{width:10px;height:10px;border-radius:999px;background:#cfd6e2;display:inline-block}
+    .row.known .dot{background:#34d399} /* зелёный */
+    .row.unknown .dot{background:#f87171} /* красный */
+  </style>
+</head>
+<body>
+  <header class="subnav">
+    <a href="./sets.html">← Назад</a>
+    <div class="pill small">Клавиши: ← «Не знаю», → «Знаю», ↑/↓ «Перевернуть»</div>
+  </header>
+
+  <main class="wrap">
+    <div class="top">
+      <div class="stats">
+        Карточка <span id="idx">1</span>/<span id="total">0</span> •
+        Знаю: <span id="known">0</span> • Не знаю: <span id="unknown">0</span>
+      </div>
+      <button id="restart" class="btn" style="display:none">Повторить «не знаю»</button>
+    </div>
+    <div class="progress"><div id="bar"></div></div>
+
+    <section class="layout">
+      <div>
+        <section id="flash" class="flash" tabindex="0" aria-label="карточка (клик — перевернуть)">
+          <div id="card" class="card3d">
+            <div id="front" class="face front">front</div>
+            <div id="back"  class="face back">back</div>
+          </div>
+        </section>
+        <div class="hint">Клик по карточке или ↑/↓ — переворот</div>
+
+        <div class="controls">
+          <button id="no"  class="btn warn wide">Не знаю (←)</button>
+          <button id="flip" class="btn wide">Перевернуть (↑/↓)</button>
+          <button id="yes" class="btn ok wide">Знаю (→)</button>
+        </div>
+      </div>
+
+      <aside class="side">
+        <h4>Список</h4>
+        <div id="list" class="list"></div>
+      </aside>
+    </section>
+  </main>
+
+  <script>
+    // ---------- ДАННЫЕ ----------
+    // Можно передать JSON набор в ?data=[["hola","привет"], ...]
+    const url = new URL(location.href);
+    let SET = null;
+    try{ SET = JSON.parse(url.searchParams.get('data')||''); }catch(e){}
+    if(!Array.isArray(SET)){
+      SET = [
+        ["contraseña","пароль"],
+        ["hambre","голод"],
+        ["avísenme","сообщите мне"],
+        ["podido","смог(ла)"],
+        ["empanadas","эмпанада(ы)"],
+        ["parrillada","ассорти-гриль"],
+        ["primera vez","первый раз"],
+        ["correo","почта"],
+        ["desconocidos","незнакомцы"],
+        ["caducó","срок истёк"]
+      ];
+    }
+    function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=(Math.random()* (i+1))|0; [a[i],a[j]]=[a[j],a[i]];} return a; }
+
+    const deck = shuffle(SET.map(([q,a],idx)=>({id:idx,q,a,state:'new'}))); // state: new/known/unknown
+    let queue = deck.slice();
+    let poolUnknown = [];
+    let i = 0, known=0, unknown=0, round=1;
+
+    // ---------- ЭЛЕМЕНТЫ ----------
+    const elIdx = document.getElementById('idx');
+    const elTotal = document.getElementById('total');
+    const elKnown = document.getElementById('known');
+    const elUnknown = document.getElementById('unknown');
+    const elBar = document.getElementById('bar');
+    const elFlash = document.getElementById('flash');
+    const elCard = document.getElementById('card');
+    const elFront = document.getElementById('front');
+    const elBack  = document.getElementById('back');
+    const btnYes = document.getElementById('yes');
+    const btnNo  = document.getElementById('no');
+    const btnFlip= document.getElementById('flip');
+    const btnRestart = document.getElementById('restart');
+    const elList = document.getElementById('list');
+    elTotal.textContent = queue.length;
+
+    // ---------- СПИСОК ----------
+    function renderList(){
+      elList.innerHTML = '';
+      deck.forEach((it,idx)=>{
+        const row = document.createElement('div');
+        row.className = 'row';
+        row.dataset.id = it.id;
+        row.innerHTML = `<span class="dot"></span><span>${idx+1}. ${it.q}</span>`;
+        if(it.state==='known') row.classList.add('known');
+        if(it.state==='unknown') row.classList.add('unknown');
+        if(queue[i] && queue[i].id===it.id) row.classList.add('active');
+        elList.appendChild(row);
+      });
+    }
+
+    // ---------- КАРТОЧКА ----------
+    function setFlipped(v){
+      if(v) elFlash.classList.add('flipped');
+      else  elFlash.classList.remove('flipped');
+    }
+    function isFlipped(){ return elFlash.classList.contains('flipped'); }
+
+    function progressPct(){
+      const done = known + unknown;
+      return Math.min(100, Math.round(done / deck.length * 100));
+    }
+
+    function render(){
+      const item = queue[i];
+      if(!item){ return finishRound(); }
+      elFront.textContent = item.q;
+      elBack.textContent  = item.a;
+      setFlipped(false);
+      elIdx.textContent = i+1;
+      elKnown.textContent = known;
+      elUnknown.textContent = unknown;
+      elBar.style.width = progressPct() + '%';
+      renderList();
+      elFlash.focus();
+    }
+
+    function finishRound(){
+      if(poolUnknown.length){
+        btnRestart.style.display = '';
+        elFront.textContent = `Раунд ${round} завершён`;
+        elBack.textContent  = `Неизвестных: ${poolUnknown.length}. Нажми «Повторить «не знаю»».`;
+        setFlipped(false);
+        renderList();
+      }else{
+        btnRestart.style.display = 'none';
+        elFront.textContent = 'Готово! Все карточки — «знаю».';
+        elBack.textContent  = 'Можно вернуться к сетам или обновить страницу.';
+        setFlipped(false);
+        renderList();
+      }
+    }
+
+    function mark(state){
+      const item = queue[i];
+      if(!item) return;
+      // обновим глобальное состояние
+      item.state = state;
+      const original = deck.find(d=>d.id===item.id);
+      if(original) original.state = state;
+      // статистика
+      if(state==='known') known++;
+      if(state==='unknown'){ unknown++; poolUnknown.push(item); }
+      // следующая
+      i++;
+      render();
+    }
+
+    // ---------- События ----------
+    btnFlip.onclick = () => setFlipped(!isFlipped());
+    elFlash.onclick = btnFlip.onclick;
+    btnYes.onclick  = () => mark('known');
+    btnNo.onclick   = () => mark('unknown');
+
+    btnRestart.onclick = () => {
+      round++;
+      queue = shuffle(poolUnknown);
+      poolUnknown = [];
+      i = 0;
+      btnRestart.style.display = 'none';
+      render();
+    };
+
+    // Горячие клавиши
+    window.addEventListener('keydown', (e)=>{
+      if(e.key==='ArrowLeft'){ e.preventDefault(); btnNo.click(); }
+      if(e.key==='ArrowRight'){ e.preventDefault(); btnYes.click(); }
+      if(e.key==='ArrowUp' || e.key==='ArrowDown'){ e.preventDefault(); btnFlip.click(); }
+    });
+
+    // Старт
+    render();
+  </script>
+</body>
+</html>
