@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Личный кабинет — Studyart</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body class="dashboard">
+  <header class="header">
+    <div class="logo">Studyart</div>
+
+    <div class="lang-switch">
+      <label>Мой язык:</label>
+      <select id="ui-lang">
+        <option>English</option>
+        <option>Русский</option>
+        <option>Español</option>
+      </select>
+
+      <label>Изучаю:</label>
+      <select id="learn-lang">
+        <option>English</option>
+        <option>Русский</option>
+        <option>Español</option>
+      </select>
+    </div>
+  </header>
+
+  <main class="grid">
+    <a class="card" href="./courses.html">
+      <h3>Мои курсы</h3>
+      <p>Все активные курсы</p>
+    </a>
+
+    <a class="card" href="./sets.html">
+      <h3>Мои сеты слов</h3>
+      <p>Созданные и сохранённые</p>
+    </a>
+
+    <a class="card" href="./review.html">
+      <h3>Надо повторить</h3>
+      <p>Карточки для повторения</p>
+    </a>
+
+    <section class="card span-2">
+      <h3>Рекомендованные сеты</h3>
+      <ul id="recommended-sets">
+        <li><a href="./sets.html#basic-phrases">Basic Phrases</a></li>
+        <li><a href="./sets.html#travel">Travel Pack</a></li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>
