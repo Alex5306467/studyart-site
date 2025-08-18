@@ -1,55 +1,108 @@
 <!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8">
-  <title>Личный кабинет — Studyart</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="stylesheet" href="../styles/main.css">
+  <meta charset="utf-8" />
+  <title>Studyart — Личный кабинет</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="../styles/main.css" />
 </head>
-<body class="dashboard">
-  <header class="header">
-    <div class="logo">Studyart</div>
-
-    <div class="lang-switch">
-      <label>Мой язык:</label>
-      <select id="ui-lang">
-        <option>English</option>
-        <option>Русский</option>
-        <option>Español</option>
-      </select>
-
-      <label>Изучаю:</label>
-      <select id="learn-lang">
-        <option>English</option>
-        <option>Русский</option>
-        <option>Español</option>
-      </select>
+<body>
+  <!-- Шапка -->
+  <header class="subnav">
+    <div class="bar">
+      <div class="logo">Studyart</div>
+      <div class="lang-switch">
+        <span class="small">Мой язык:</span>
+        <select><option>English</option><option>Русский</option></select>
+        <span class="small">Изучаю:</span>
+        <select><option>English</option><option>Español</option><option>Deutsch</option></select>
+        <a class="btn" href="./sets.html">Сеты</a>
+      </div>
     </div>
   </header>
 
-  <main class="grid">
-    <a class="card" href="./courses.html">
-      <h3>Мои курсы</h3>
-      <p>Все активные курсы</p>
-    </a>
+  <!-- Блок уведомления/герой -->
+  <section class="hero">
+    <div class="band">
+      <span class="badge">⚡ Интервалы</span>
+      <div class="kpis">
+        <span>на сегодня: <span class="muted">28 слов</span></span>
+        <span>серия: <span class="muted">4 дня</span></span>
+      </div>
+      <a class="btn ok" href="./review.html?id=es-ru-basic">Начать повторение</a>
+    </div>
+  </section>
 
-    <a class="card" href="./sets.html">
-      <h3>Мои сеты слов</h3>
-      <p>Созданные и сохранённые</p>
-    </a>
+  <!-- Мои курсы -->
+  <section>
+    <div class="container"><h2>Мои курсы</h2></div>
+    <div class="grid">
+      <a class="card" href="#">
+        <div class="label">Spanish A1 — Basics</div>
+        <div class="small">Уроков: 12/24</div>
+        <div class="progress-mini mt-2"><div style="width:50%"></div></div>
+        <div class="mt-2"><span class="btn ok">Продолжить</span></div>
+      </a>
+      <a class="card" href="#">
+        <div class="label">Everyday English — Travel</div>
+        <div class="small">Уроков: 7/18</div>
+        <div class="progress-mini mt-2"><div style="width:38%"></div></div>
+        <div class="mt-2"><span class="btn ok">Продолжить</span></div>
+      </a>
+      <a class="card" href="#">
+        <div class="label">Deutsch — Starter Pack</div>
+        <div class="small">Уроков: 2/20</div>
+        <div class="progress-mini mt-2"><div style="width:10%"></div></div>
+        <div class="mt-2"><span class="btn ok">Продолжить</span></div>
+      </a>
+    </div>
+  </section>
 
-    <a class="card" href="./review.html">
-      <h3>Надо повторить</h3>
-      <p>Карточки для повторения</p>
-    </a>
+  <!-- Мои сеты слов -->
+  <section>
+    <div class="container"><h2>Мои сеты слов</h2></div>
+    <div class="grid">
+      <article class="card">
+        <div class="small muted">ES · 80 слов</div>
+        <div class="label">phrases</div>
+        <div class="small">Выучено: 42 • к повторению: <span class="label" style="color:#0ea5e9">10</span></div>
+        <div class="mt-2" style="display:flex;gap:8px">
+          <a class="btn ok" href="./review.html?id=es-ru-basic">Повторить</a>
+          <a class="btn" href="./sets.html">Открыть</a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="small muted">ES · 100 слов</div>
+        <div class="label">verbs</div>
+        <div class="small">Выучено: 70 • к повторению: <span class="label" style="color:#0ea5e9">12</span></div>
+        <div class="mt-2" style="display:flex;gap:8px">
+          <a class="btn ok" href="./review.html?id=es-ru-basic">Повторить</a>
+          <a class="btn" href="./sets.html">Открыть</a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="small muted">ES · 55 слов</div>
+        <div class="label">work basics</div>
+        <div class="small">Выучено: 20 • к повторению: <span class="label" style="color:#0ea5e9">7</span></div>
+        <div class="mt-2" style="display:flex;gap:8px">
+          <a class="btn ok" href="./review.html?id=es-ru-basic">Повторить</a>
+          <a class="btn" href="./sets.html">Открыть</a>
+        </div>
+      </article>
+    </div>
+  </section>
 
-    <section class="card span-2">
-      <h3>Рекомендованные сеты</h3>
-      <ul id="recommended-sets">
-        <li><a href="./sets.html#basic-phrases">Basic Phrases</a></li>
-        <li><a href="./sets.html#travel">Travel Pack</a></li>
-      </ul>
-    </section>
-  </main>
+  <!-- Рекомендованные -->
+  <section>
+    <div class="container"><h2>Рекомендованные сеты</h2></div>
+    <div class="grid">
+      <article class="card span-2">
+        <ul style="margin:0 0 8px 18px">
+          <li><a href="./review.html?id=es-ru-basic">Basic Phrases</a></li>
+          <li><a href="./review.html?id=travel">Travel Pack</a></li>
+        </ul>
+      </article>
+    </div>
+  </section>
 </body>
 </html>
