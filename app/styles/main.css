@@ -1,78 +1,159 @@
+/* ==== Design tokens ======================================================= */
 :root{
-  --bg:#f6f7fb; --card:#fff; --line:#e6e8ef; --text:#111; --muted:#6b7280;
-  --ok:#10b981; --warn:#ef4444; --brand:#0ea5e9;
-  --shadow:0 10px 24px rgba(0,0,0,.06); --radius:16px;
+  /* Цвета */
+  --bg:#f5f7fb;            /* фон страницы */
+  --panel:#ffffff;         /* карточки/панели */
+  --line:#e6e8ef;          /* границы/разделители */
+  --ink:#0f172a;           /* основной текст */
+  --muted:#6b7280;         /* вторичный текст */
+  --brand:#0ea5e9;         /* акцент */
+  --ok:#10b981;            /* успех */
+  --warn:#ef4444;          /* предупреждение */
+
+  /* Эффекты */
+  --radius:16px;
+  --shadow:0 10px 28px rgba(16,24,40,.06);
+  --shadow-soft:0 4px 14px rgba(16,24,40,.06);
+
+  /* Размеры */
+  --container:1120px;
 }
 
+/* ==== Базовые стили ====================================================== */
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
-  margin:0; background:var(--bg); color:var(--text);
-  font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+  text-rendering:optimizeLegibility;
+  -webkit-font-smoothing:antialiased;
 }
-a{color:inherit; text-decoration:none}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+h1,h2,h3{line-height:1.25;margin:0 0 .25em 0}
+h1{font-size:28px} h2{font-size:22px} h3{font-size:18px}
+p{margin:.5em 0}
 
-/* ---------- Шапки ---------- */
+/* Контейнер */
+.container{max-width:var(--container);margin:0 auto;padding:16px}
+
+/* ==== Header / Subnav ==================================================== */
 .header,.subnav{
-  display:flex; align-items:center; justify-content:space-between;
-  gap:12px; padding:12px 16px; background:#fff; border-bottom:1px solid var(--line);
-  position:sticky; top:0; z-index:10;
+  position:sticky;top:0;z-index:20;
+  background:linear-gradient(180deg,rgba(255,255,255,.9),rgba(255,255,255,.85));
+  backdrop-filter:saturate(1.2) blur(8px);
+  border-bottom:1px solid var(--line);
+  box-shadow:var(--shadow-soft);
 }
-.logo{font-weight:800}
-.lang-switch{display:flex; align-items:center; gap:10px}
-.lang-switch select{border:1px solid var(--line); border-radius:8px; padding:6px; background:#fff}
-
-/* ---------- Карточная сетка (dashboard) ---------- */
-.grid{display:grid; grid-template-columns:repeat(12,1fr); gap:16px; padding:20px}
-.card{
-  display:block; background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
-  padding:16px; box-shadow:var(--shadow); transition:transform .15s ease, box-shadow .15s ease;
+.header .bar,.subnav .bar{
+  max-width:var(--container);margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:10px 16px;
 }
-.card:hover{ transform:translateY(-2px) }
-.card h3{margin:0 0 6px 0}
-.card p{margin:0; color:var(--muted)}
-.span-2{grid-column:span 12}
-@media(min-width:900px){ .span-2{grid-column:span 6} }
-
-/* ---------- Списки (sets.html) ---------- */
-main.list{padding:16px; display:flex; flex-direction:column; gap:12px}
-.row{
-  background:#fff; border:1px solid var(--line); border-radius:12px; padding:14px;
-  box-shadow:var(--shadow); display:flex; align-items:center; justify-content:space-between; gap:12px;
+.logo{font-weight:800;letter-spacing:.2px}
+.lang-switch{display:flex;align-items:center;gap:8px}
+select{
+  appearance:none;background:#fff;border:1px solid var(--line);
+  border-radius:10px;padding:8px 12px;min-width:120px;
 }
 
-/* ---------- Кнопки ---------- */
+/* ==== Кнопки ============================================================= */
 .btn{
-  display:inline-block; padding:8px 14px; border:1px solid var(--line);
-  border-radius:10px; background:#fff; cursor:pointer; text-decoration:none;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  height:38px;padding:0 14px;border-radius:12px;border:1px solid var(--line);
+  background:#fff;cursor:pointer;user-select:none;transition:.15s transform, .15s box-shadow, .15s background;
 }
-.btn.ok{background:var(--ok); border-color:var(--ok); color:#fff}
-.btn.warn{background:#fff; border-color:#fca5a5; color:#b91c1c}
-.btn.wide{min-width:160px; text-align:center}
-.pill{display:inline-flex; align-items:center; gap:8px; border:1px solid var(--line);
-  padding:6px 10px; border-radius:999px; background:#fff; color:var(--muted); font-size:14px}
+.btn:hover{transform:translateY(-1px);box-shadow:var(--shadow-soft)}
+.btn:active{transform:translateY(0)}
+.btn.ok{background:var(--ok);border-color:var(--ok);color:#fff}
+.btn.warn{background:#fff;border-color:#fecaca;color:#b91c1c}
+.btn.ghost{background:#fff;border-style:dashed}
+.btn.wide{min-width:160px}
+.pill{
+  display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid var(--line);
+  border-radius:999px;background:#fff;color:var(--muted);font-size:14px
+}
 
-/* ---------- Тренажёр (review.html) ---------- */
-.trainer{max-width:1100px; margin:24px auto; padding:12px}
-.topbar{display:flex; justify-content:space-between; align-items:center; margin-bottom:10px}
-.stats{color:var(--muted); font-size:14px}
-.progress{height:8px; background:#eef1f5; border:1px solid var(--line); border-radius:999px; overflow:hidden}
-.progress>div{height:100%; width:0; background:var(--ok); transition:width .25s ease}
+/* ==== Карточки / панели ================================================== */
+.card{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:var(--shadow);padding:16px;transition:transform .15s ease, box-shadow .15s ease;
+}
+.card:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(16,24,40,.1)}
+.card h3{margin-bottom:6px}
+.card p{color:var(--muted);margin:0}
 
-.flash{background:#fff; border:1px solid var(--line); border-radius:16px; box-shadow:var(--shadow);
-  height:320px; display:grid; place-items:center; padding:24px; user-select:none; cursor:pointer; perspective:1000px}
-.card3d{position:relative; width:100%; height:100%; display:grid; place-items:center}
-.face{font-size:32px; text-align:center; max-width:90%;
-  transition:transform .4s ease, opacity .4s ease; transform-style:preserve-3d}
+/* ==== Dashboard сетка ==================================================== */
+.grid{
+  display:grid;gap:16px;padding:20px;max-width:var(--container);margin:0 auto;
+  grid-template-columns:repeat(12,1fr);
+}
+.grid .card{grid-column:span 12}
+@media(min-width:720px){
+  .grid .card{grid-column:span 6}
+}
+@media(min-width:1000px){
+  .grid .card{grid-column:span 3}
+}
+.span-2{grid-column:span 12}
+@media(min-width:900px){.span-2{grid-column:span 6}}
+
+/* ==== Список сетов (sets.html) ========================================== */
+main.list{max-width:var(--container);margin:0 auto;padding:20px 16px;display:flex;flex-direction:column;gap:12px}
+.row{
+  background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;box-shadow:var(--shadow-soft);
+}
+.row .meta{color:var(--muted);font-size:14px;margin-top:4px}
+
+/* ==== Тренажёр (review.html) ============================================ */
+.trainer{max-width:var(--container);margin:22px auto;padding:0 16px}
+.topbar{display:flex;gap:12px;justify-content:space-between;align-items:center;margin-bottom:10px}
+.stats{color:var(--muted);font-size:14px}
+.progress{height:8px;background:#eef1f5;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.progress>div{height:100%;width:0;background:var(--ok);transition:width .25s ease}
+
+.layout{display:grid;gap:16px;grid-template-columns:1fr 360px}
+@media(max-width:980px){.layout{grid-template-columns:1fr}}
+
+.flash{
+  background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);
+  height:340px;display:grid;place-items:center;padding:24px;user-select:none;cursor:pointer;perspective:1000px;
+  background-image:linear-gradient(160deg,#fff, #f1faf6);
+}
+.card3d{position:relative;width:100%;height:100%;display:grid;place-items:center}
+.face{
+  font-size:34px;text-align:center;max-width:90%;transition:transform .45s ease, opacity .45s ease;transform-style:preserve-3d
+}
 .front{transform:rotateY(0)}
-.back{position:absolute; opacity:0; transform:rotateY(-180deg)}
-.flipped .front{opacity:0; transform:rotateY(180deg)}
-.flipped .back{opacity:1; transform:rotateY(0)}
+.back{position:absolute;opacity:0;transform:rotateY(-180deg)}
+.flipped .front{opacity:0;transform:rotateY(180deg)}
+.flipped .back{opacity:1;transform:rotateY(0)}
+.hint{color:var(--muted);font-size:14px;margin:8px 0 0;text-align:center}
+.controls{display:flex;gap:12px;justify-content:center;margin:12px 0;flex-wrap:wrap}
 
-.side{background:#fff; border:1px solid var(--line); border-radius:16px; box-shadow:var(--shadow); padding:12px}
-.list-vert{display:flex; flex-direction:column; gap:8px; max-height:420px; overflow:auto}
-.item{display:flex; align-items:center; gap:8px; padding:8px 10px; border:1px solid var(--line); border-radius:12px}
+.side{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:12px}
+.side h4{margin:6px 8px 10px}
+.list-vert{display:flex;flex-direction:column;gap:8px;max-height:420px;overflow:auto;padding-right:6px}
+.item{
+  display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--line);border-radius:12px;
+  background:#fff
+}
 .item.active{border-color:var(--ok)}
-.dot{width:10px; height:10px; border-radius:999px; background:#cfd6e2; display:inline-block}
+.dot{width:10px;height:10px;border-radius:999px;background:#cfd6e2;display:inline-block}
 .item.known .dot{background:#34d399}
 .item.unknown .dot{background:#f87171}
+
+/* ==== Формы / поля ======================================================= */
+input,select,textarea{
+  width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;
+  font:inherit;outline:none
+}
+input:focus,select:focus,textarea:focus{border-color:#c9d3ea;box-shadow:0 0 0 3px rgba(14,165,233,.12)}
+
+/* ==== Утилиты ============================================================ */
+.center{display:grid;place-items:center}
+.muted{color:var(--muted)}
+.mt-1{margin-top:6px}.mt-2{margin-top:12px}.mt-3{margin-top:18px}
