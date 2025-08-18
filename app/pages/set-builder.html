@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Создать сет — Studyart</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <header class="subnav">
+    <a href="./sets.html">← Назад</a>
+  </header>
+
+  <main class="builder">
+    <h2>Новый сет</h2>
+    <form id="builder-form">
+      <div id="pairs">
+        <div class="pair">
+          <input name="word[]" placeholder="Слово">
+          <input name="translation[]" placeholder="Перевод">
+        </div>
+      </div>
+      <button type="button" id="add-pair" class="btn">+ Добавить слово</button>
+      <button type="submit" class="btn ok">Сохранить</button>
+    </form>
+  </main>
+
+  <script>
+    const pairs = document.getElementById('pairs');
+    document.getElementById('add-pair').onclick = () => {
+      const div = document.createElement('div');
+      div.className = 'pair';
+      div.innerHTML = `
+        <input name="word[]" placeholder="Слово">
+        <input name="translation[]" placeholder="Перевод">
+      `;
+      pairs.appendChild(div);
+    };
+  </script>
+</body>
+</html>
